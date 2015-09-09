@@ -14,7 +14,7 @@ public class Order
 {
     private int orderId;   
     private PaymentInformation paymentInformation;
-    private List<InventoryItem> orderItems;
+    private List<OrderItem> orderItems;
     private Boolean validated;
     private Boolean completed;
 
@@ -23,7 +23,7 @@ public class Order
 		
 	}
 
-    public Order(int orderId, PaymentInformation paymentInformation, List<InventoryItem> orderItems, Boolean validated, Boolean completed)
+    public Order(int orderId, PaymentInformation paymentInformation, List<OrderItem> orderItems, Boolean validated, Boolean completed)
     {
         this.orderId = orderId;
         this.paymentInformation = paymentInformation;
@@ -49,22 +49,22 @@ public class Order
         this.paymentInformation = paymentInformation;
     }
 
-    public List<InventoryItem> getOrderItems()
+    public List<OrderItem> getOrderItems()
     {
         return this.orderItems;
     }
-    public void setOrderItems(List<InventoryItem> orderItems)
+    public void setOrderItems(List<OrderItem> orderItems)
     {
         this.orderItems = orderItems;
     }
 
-    public int addOrderItem(InventoryItem orderItem)
+    public int addOrderItem(OrderItem orderItem)
     {
         orderItems.Add(orderItem);
         return this.getOrderItemsCount();
     }
 
-    public int removeOrderItem(InventoryItem orderItem)
+    public int removeOrderItem(OrderItem orderItem)
     {
         orderItems.Remove(orderItem);
         return this.getOrderItemsCount();
