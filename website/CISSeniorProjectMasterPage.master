@@ -1,0 +1,41 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CISSeniorProjectMasterPage.master.cs" Inherits="CISSeniorProjectMasterPage" %>
+
+<%@ Register Src="~/LoginControl.ascx" TagPrefix="uc1" TagName="LoginControl" %>
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link rel="stylesheet" type="text/css" href="CSS/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="CSS/main.css" />
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server" >
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+   
+        <div id="login-control">
+            <uc1:LoginControl runat="server" ID="LoginControl" />
+        </div>
+        <div id="header" class="clear-left"><h1>William's Engraving and Specialty Supplies</h1></div>
+
+        <div id="links">
+            <ul>
+                <li>link 1</li>
+                <li>link 2</li>
+                <li>link 3</li>
+                <li>link 4</li>
+            </ul>
+        </div>
+        <div id="body">
+            <asp:ContentPlaceHolder id="mainContentPlaceHolder" runat="server">
+                
+            </asp:ContentPlaceHolder>
+        </div>
+    
+        <div id="footer" class="clear">copyright 2015 -- CISSeniorProject</div>
+    </form>
+</body>
+</html>
