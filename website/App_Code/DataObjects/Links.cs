@@ -16,6 +16,7 @@ public class Links
     private String path;
     private int accessLevel;
     private String linkText;
+    
 
 	public Links()
 	{
@@ -28,6 +29,13 @@ public class Links
         this.path = path;
         this.accessLevel = accessLevel;
         this.linkText = linkText;
+    }
+
+    public Links(string path, string text)
+    {
+        
+        this.path = path;
+        this.linkText = text;
     }
 
     public int getLinkId()

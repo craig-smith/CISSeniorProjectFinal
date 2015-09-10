@@ -19,4 +19,19 @@ public class Security
     {
         return false;
     }
+
+    public static string getUsername()
+    {
+        String username = SessionVariableManager.getUsername();
+        if ( username != String.Empty)
+        {
+            return username;
+        }
+        else
+        {
+            username = "anonymous";
+            SessionVariableManager.setUsername(username);
+            return username;
+        }
+    }
 }
