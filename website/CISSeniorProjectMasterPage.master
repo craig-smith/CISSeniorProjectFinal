@@ -1,6 +1,8 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="CISSeniorProjectMasterPage.master.cs" Inherits="CISSeniorProjectMasterPage" %>
 
 <%@ Register Src="~/LoginControl.ascx" TagPrefix="uc1" TagName="LoginControl" %>
+<%@ Register Src="~/LinksControl.ascx" TagPrefix="uc1" TagName="LinksControl" %>
+
 
 
 <!DOCTYPE html>
@@ -22,12 +24,7 @@
         <div id="header" class="clear-left"><h1>William's Engraving and Specialty Supplies</h1></div>
 
         <div id="links">
-            <ul>
-                <li>link 1</li>
-                <li>link 2</li>
-                <li>link 3</li>
-                <li>link 4</li>
-            </ul>
+            <uc1:LinksControl runat="server" id="LinksControl" />
         </div>
         <div id="body">
             <asp:ContentPlaceHolder id="mainContentPlaceHolder" runat="server">
