@@ -17,7 +17,15 @@ public class Security
 
     public static bool isLoggedIn()
     {
-        return false;
+        String username = getUsername();
+        if (username != "anonymous")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public static string getUsername()
@@ -33,5 +41,25 @@ public class Security
             SessionVariableManager.setUsername(username);
             return username;
         }
+    }
+
+    public static void logIn(String username, String password)
+    {
+        PasswordManager passManager = new PasswordManager(username, password);
+        Boolean login = passManager.checkPassword();
+
+        if (login)
+        {
+            SessionVariableManager.setUsername(username);
+        }
+    }
+
+    public static bool createNewUser(string username, string password)
+    {
+        PasswordManager passManager = new PasswordManager(username, password);
+
+        bool created = passManager.createNewAccount();
+
+        return created;
     }
 }
