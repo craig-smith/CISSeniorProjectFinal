@@ -33,7 +33,7 @@ body {
     float: right;
     width: 65%;
     min-height: 800px;    
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 20px;
    
     padding: 20px; 
@@ -46,10 +46,15 @@ body {
 #links{
     float: left;
       
-    margin-top: 20px;
+    margin-top: 30px;
     margin-left: 20px;
     margin-bottom: 20px;
     padding: 20px;
+    border: solid;
+    background-color: lightslategray;
+}
+a{
+    color: inherit;
 }
 .clear{
     clear: both;
@@ -90,6 +95,13 @@ body {
 }
 .nav-item{
     border:solid;
-    height: 50px;
-    width: 50px;
+    height: 20px;
+    width: 200px;
+    background: linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -moz-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -ms-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    margin-top: 10px;
+    text-align: center;
+    
 }
