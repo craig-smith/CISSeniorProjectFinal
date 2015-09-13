@@ -9,7 +9,7 @@ public partial class CISSeniorProjectMasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Security.checkUrl();
     }
 
   

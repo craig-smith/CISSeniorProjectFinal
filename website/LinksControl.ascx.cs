@@ -15,30 +15,10 @@ public partial class LinksControl : System.Web.UI.UserControl
 
     private void getNavLinks() 
     {
-        if (SessionVariableManager.getLinks() != null)
-        {
-            List<Links> links = SessionVariableManager.getLinks();
-            sendLinksToWrite(links);
-        }
-        else
-        {
-            List<Links> userLinks = getLinksFromDB();
-
-            sendLinksToWrite(userLinks);
-        }
+        List<Links> allowedLinks = LinksManager.getAllowedLinks();
+        sendLinksToWrite(allowedLinks);
         
-    }
-
-    private static List<Links> getLinksFromDB()
-    {
-        String username = Security.getUsername();
-
-        LinksDao dataLayer = new LinksDao();
-
-        List<Links> userLinks = dataLayer.getUserLinks(username);
-        SessionVariableManager.setLinks(userLinks);
-        return userLinks;
-    }
+    }    
 
     private void sendLinksToWrite(List<Links> userLinks)
     {
@@ -62,7 +42,7 @@ public partial class LinksControl : System.Web.UI.UserControl
 
     public void reloadLinks()
     {
-        getLinksFromDB();    
+        LinksManager.getLinksFromDB();  
         
     }
 }

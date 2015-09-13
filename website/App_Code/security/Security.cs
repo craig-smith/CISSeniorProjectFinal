@@ -62,4 +62,19 @@ public class Security
 
         return created;
     }
+
+    public static void checkUrl()
+    {
+        List<Links> allowedLinks = LinksManager.getAllowedLinks(); 
+       
+        String currentUrl = HttpContext.Current.Request.CurrentExecutionFilePath;
+
+        int allowed = allowedLinks.FindIndex(f => f.getPath() == currentUrl);
+
+        if (allowed < 0)
+        {
+            HttpContext.Current.Response.Redirect("~/index.aspx");
+        }
+
+    }
 }
