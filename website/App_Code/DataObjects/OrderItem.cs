@@ -10,48 +10,53 @@ using System.Web;
 /// 
 /// Written by Craig Smith 9/9/15
 /// </summary>
-public class OrderItem
+namespace cisseniorproject.dataobjects.data
 {
-    private int orderId;
-    private int productId;
-    private int count;
 
-	public OrderItem()
-	{
-		
-	}
 
-    public OrderItem(int orderId, int productId, int count)
+    public class OrderItem
     {
-        this.orderId = orderId;
-        this.productId = productId;
-        this.count = count;
-    }
+        private int orderId;
+        private int productId;
+        private int count;
 
-    public int getOrderId()
-    {
-        return this.orderId;
-    }
-    public void setOrderId(int orderId)
-    {
-        this.orderId = orderId;
-    }
+        public OrderItem()
+        {
 
-    public int getProductId()
-    {
-        return this.productId;
-    }
-    public void setProductId(int productId)
-    {
-        this.productId = productId;
-    }
+        }
 
-    public int getCount()
-    {
-        return this.count;
-    }
-    public void setCount(int count)
-    {
-        this.count = count;
+        public OrderItem(int orderId, int productId, int count)
+        {
+            this.orderId = orderId;
+            this.productId = productId;
+            this.count = count;
+        }
+
+        public int getOrderId()
+        {
+            return this.orderId;
+        }
+        public void setOrderId(int orderId)
+        {
+            this.orderId = orderId;
+        }
+
+        public int getProductId()
+        {
+            return this.productId;
+        }
+        public void setProductId(int productId)
+        {
+            this.productId = productId;
+        }
+
+        public int getCount()
+        {
+            return this.count;
+        }
+        public void setCount(int count)
+        {
+            this.count = count;
+        }
     }
 }

@@ -10,85 +10,91 @@ using System.Web;
 /// 
 /// Written by Craig Smith 9/8/15
 /// </summary>
-public class Order
+namespace cisseniorproject.dataobjects.data
 {
-    private int orderId;   
-    private PaymentInformation paymentInformation;
-    private List<OrderItem> orderItems;
-    private Boolean validated;
-    private Boolean completed;
 
-	public Order()
-	{
-		
-	}
 
-    public Order(int orderId, PaymentInformation paymentInformation, List<OrderItem> orderItems, Boolean validated, Boolean completed)
+    public class Order
     {
-        this.orderId = orderId;
-        this.paymentInformation = paymentInformation;
-        this.orderItems = orderItems;
-        this.validated = validated;
-        this.completed = completed;
-    }
+        private int orderId;
+        private PaymentInformation paymentInformation;
+        private List<OrderItem> orderItems;
+        private Boolean validated;
+        private Boolean completed;
 
-    public int getOrderId(){
-        return this.orderId;
-    }
-    public void setOrderId(int orderId)
-    {
-        this.orderId = orderId;
-    }
+        public Order()
+        {
 
-    public PaymentInformation getPaymentInformation()
-    {
-        return this.paymentInformation;
-    }
-    public void setPaymentInformation(PaymentInformation paymentInformation)
-    {
-        this.paymentInformation = paymentInformation;
-    }
+        }
 
-    public List<OrderItem> getOrderItems()
-    {
-        return this.orderItems;
-    }
-    public void setOrderItems(List<OrderItem> orderItems)
-    {
-        this.orderItems = orderItems;
-    }
+        public Order(int orderId, PaymentInformation paymentInformation, List<OrderItem> orderItems, Boolean validated, Boolean completed)
+        {
+            this.orderId = orderId;
+            this.paymentInformation = paymentInformation;
+            this.orderItems = orderItems;
+            this.validated = validated;
+            this.completed = completed;
+        }
 
-    public int addOrderItem(OrderItem orderItem)
-    {
-        orderItems.Add(orderItem);
-        return this.getOrderItemsCount();
-    }
+        public int getOrderId()
+        {
+            return this.orderId;
+        }
+        public void setOrderId(int orderId)
+        {
+            this.orderId = orderId;
+        }
 
-    public int removeOrderItem(OrderItem orderItem)
-    {
-        orderItems.Remove(orderItem);
-        return this.getOrderItemsCount();
-    }
-    public int getOrderItemsCount()
-    {
-        return orderItems.Count;
-    }
+        public PaymentInformation getPaymentInformation()
+        {
+            return this.paymentInformation;
+        }
+        public void setPaymentInformation(PaymentInformation paymentInformation)
+        {
+            this.paymentInformation = paymentInformation;
+        }
 
-    public Boolean isOrderValidated()
-    {
-        return this.validated;
-    }
-    public void setValidated(Boolean validated)
-    {
-        this.validated = validated;
-    }
+        public List<OrderItem> getOrderItems()
+        {
+            return this.orderItems;
+        }
+        public void setOrderItems(List<OrderItem> orderItems)
+        {
+            this.orderItems = orderItems;
+        }
 
-    public Boolean isOrderCompleted()
-    {
-        return completed;
-    }
-    public void setCompleted(Boolean completed)
-    {
-        this.completed = completed;
+        public int addOrderItem(OrderItem orderItem)
+        {
+            orderItems.Add(orderItem);
+            return this.getOrderItemsCount();
+        }
+
+        public int removeOrderItem(OrderItem orderItem)
+        {
+            orderItems.Remove(orderItem);
+            return this.getOrderItemsCount();
+        }
+        public int getOrderItemsCount()
+        {
+            return orderItems.Count;
+        }
+
+        public Boolean isOrderValidated()
+        {
+            return this.validated;
+        }
+        public void setValidated(Boolean validated)
+        {
+            this.validated = validated;
+        }
+
+        public Boolean isOrderCompleted()
+        {
+            return completed;
+        }
+        public void setCompleted(Boolean completed)
+        {
+            this.completed = completed;
+        }
     }
 }

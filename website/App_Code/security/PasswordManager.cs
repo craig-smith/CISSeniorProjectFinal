@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.Security.Cryptography;
+using cisseniorproject.security.data;
+using cisseniorproject.security.data.dao;
 
 
 /// <summary>
@@ -11,102 +13,107 @@ using System.Security.Cryptography;
 /// SHA256 algorithm is used to store passwords in the database along with
 /// salt for extra security.
 /// </summary>
-public class PasswordManager
+namespace cisseniorproject.security
 {
 
-    private String username;
-    private String password;
 
-    public PasswordManager(String username, String password)
+    public class PasswordManager
     {
-        this.username = username;
-        this.password = password;
-    }
 
-    public bool createNewAccount()
-    {
-        Credentials newPass = generateNewPassword();
+        private String username;
+        private String password;
 
-        bool created = SecurityUserDAO.createAccount(newPass); //send to db for saving, returns true if successful/false for unsuccessful
-
-        return created;
-    }
-
-    private Credentials generateNewPassword()
-    {
-        HashAlgorithm algorithm = new SHA256Managed(); //hashing algorithm used for passwords
-
-        byte[] pass = createByteArrayFromString(password); //create byte array
-        String salt = generateSalt(); //get different salt for each password
-        byte[] saltArray = createByteArrayFromString(salt); //create byte array for salt
-
-        byte[] passWithSalt = pass.Concat(saltArray).ToArray(); //concate both pass array and salt array
-
-        String hashedPass = Convert.ToBase64String(algorithm.ComputeHash(passWithSalt)); //create hash from salt and convert to string for storing in db
-
-        Credentials newPass = new Credentials(username, hashedPass, salt, "2"); //create credentails object to send to db for saving
-        return newPass;
-    }
-    //this method generates a different salt value for each password using the system time
-    private String generateSalt()
-    {
-        return System.DateTime.Now.Ticks.ToString();
-    }
-    //this method checks that passwords match in a login attempt
-    public bool checkPassword()
-    {
-        Credentials userCredentials = SecurityUserDAO.getUserCredentials(username);
-        if (userCredentials != null)
+        public PasswordManager(String username, String password)
         {
-            byte[] dbPass = Convert.FromBase64String(userCredentials.getPassword());
-
-            byte[] userPass = createByteArrayFromString(password);
-            byte[] dbSalt = createByteArrayFromString(userCredentials.getSalt());
-
-            byte[] userSaltedPass = userPass.Concat(dbSalt).ToArray();
-
-            HashAlgorithm algorithm = new SHA256Managed();
-            byte[] hasheduserPass = algorithm.ComputeHash(userSaltedPass);
-
-            bool match = compareByteArrays(dbPass, hasheduserPass);
-
-            return match;
+            this.username = username;
+            this.password = password;
         }
-        else
+
+        public bool createNewAccount()
         {
-            return false;
+            Credentials newPass = generateNewPassword();
+
+            bool created = SecurityUserDAO.createAccount(newPass); //send to db for saving, returns true if successful/false for unsuccessful
+
+            return created;
         }
-    }
-    //this method compares byte arrays of stored password in db and user supplied password on login
-    private bool compareByteArrays(byte[] dbPass, byte[] userSaltedPass)
-    {
-        if (dbPass.Length != userSaltedPass.Length)
+
+        private Credentials generateNewPassword()
         {
-            return false;
+            HashAlgorithm algorithm = new SHA256Managed(); //hashing algorithm used for passwords
+
+            byte[] pass = createByteArrayFromString(password); //create byte array
+            String salt = generateSalt(); //get different salt for each password
+            byte[] saltArray = createByteArrayFromString(salt); //create byte array for salt
+
+            byte[] passWithSalt = pass.Concat(saltArray).ToArray(); //concate both pass array and salt array
+
+            String hashedPass = Convert.ToBase64String(algorithm.ComputeHash(passWithSalt)); //create hash from salt and convert to string for storing in db
+
+            Credentials newPass = new Credentials(username, hashedPass, salt, "2"); //create credentails object to send to db for saving
+            return newPass;
         }
-        for (int i = 0; i < dbPass.Length; i++)
+        //this method generates a different salt value for each password using the system time
+        private String generateSalt()
         {
-            if (dbPass[i] != userSaltedPass[i])
+            return System.DateTime.Now.Ticks.ToString();
+        }
+        //this method checks that passwords match in a login attempt
+        public bool checkPassword()
+        {
+            Credentials userCredentials = SecurityUserDAO.getUserCredentials(username);
+            if (userCredentials != null)
+            {
+                byte[] dbPass = Convert.FromBase64String(userCredentials.getPassword());
+
+                byte[] userPass = createByteArrayFromString(password);
+                byte[] dbSalt = createByteArrayFromString(userCredentials.getSalt());
+
+                byte[] userSaltedPass = userPass.Concat(dbSalt).ToArray();
+
+                HashAlgorithm algorithm = new SHA256Managed();
+                byte[] hasheduserPass = algorithm.ComputeHash(userSaltedPass);
+
+                bool match = compareByteArrays(dbPass, hasheduserPass);
+
+                return match;
+            }
+            else
             {
                 return false;
             }
         }
-        return true;
+        //this method compares byte arrays of stored password in db and user supplied password on login
+        private bool compareByteArrays(byte[] dbPass, byte[] userSaltedPass)
+        {
+            if (dbPass.Length != userSaltedPass.Length)
+            {
+                return false;
+            }
+            for (int i = 0; i < dbPass.Length; i++)
+            {
+                if (dbPass[i] != userSaltedPass[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        //utility method to create a byte array from a string
+        private byte[] createByteArrayFromString(String s)
+        {
+            return Encoding.UTF8.GetBytes(s);
+        }
+        //this method changes a user's password
+        public bool changePassword()
+        {
+            Credentials newPassword = generateNewPassword();
+
+            bool success = SecurityUserDAO.changePassword(newPassword);
+
+            return success;
+
+        }
+
     }
-    //utility method to create a byte array from a string
-    private byte[] createByteArrayFromString(String s)
-    {
-        return Encoding.UTF8.GetBytes(s);
-    }
-    //this method changes a user's password
-    public bool changePassword()
-    {
-        Credentials newPassword = generateNewPassword();
-
-        bool success = SecurityUserDAO.changePassword(newPassword);
-
-        return success;
-
-    }
-
 }

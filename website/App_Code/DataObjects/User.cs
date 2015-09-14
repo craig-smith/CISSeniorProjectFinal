@@ -10,106 +10,111 @@ using System.Web;
 /// 
 /// Written by Craig Smith 9/8/15
 /// </summary>
-public class User
+namespace cisseniorproject.dataobjects.data
 {
-    private int id;
-    private String username;
-    private String firstName;
-    private String lastName;
-    private String city;
-    private String state;
-    private String zipCode;
-    private DateTime accountCreationDate;
-    
-    
-	public User() 
-	{
-		
-	}
 
-    public User(int id, String username, String firstName, String lastName, 
-        String city, String state, String zipCode, DateTime accountCreationDate)
-    {
-        this.id = id;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        this.accountCreationDate = accountCreationDate;
-    }
 
-    public int getId()
+    public class User
     {
-        return this.id;
-    }
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+        private int id;
+        private String username;
+        private String firstName;
+        private String lastName;
+        private String city;
+        private String state;
+        private String zipCode;
+        private DateTime accountCreationDate;
 
-    public String getUsername()
-    {
-        return this.username;
 
-    }
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
+        public User()
+        {
 
-    public String getFirstName()
-    {
-        return this.firstName;
-    }
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
+        }
 
-    public String getLastName()
-    {
-        return this.lastName;
-    }
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
-    }
+        public User(int id, String username, String firstName, String lastName,
+            String city, String state, String zipCode, DateTime accountCreationDate)
+        {
+            this.id = id;
+            this.username = username;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.city = city;
+            this.state = state;
+            this.zipCode = zipCode;
+            this.accountCreationDate = accountCreationDate;
+        }
 
-    public String getCity()
-    {
-        return this.city;
-    }
-    public void setCity(String city)
-    {
-        this.city = city;
-    }
+        public int getId()
+        {
+            return this.id;
+        }
+        public void setId(int id)
+        {
+            this.id = id;
+        }
 
-    public String getState()
-    {
-        return this.state;
-    }
-    public void setState(String state)
-    {
-        this.state = state;
-    }
+        public String getUsername()
+        {
+            return this.username;
 
-    public String getZipCode()
-    {
-        return this.zipCode;
-    }
-    public void setZipCode(String zipCode)
-    {
-        this.zipCode = zipCode;
-    }
+        }
+        public void setUsername(String username)
+        {
+            this.username = username;
+        }
 
-    public DateTime getAccountCreationDate()
-    {
-        return this.accountCreationDate;
-    }
-    public void setAccountCreationDate(DateTime accountCreationDate)
-    {
-        this.accountCreationDate = accountCreationDate;
+        public String getFirstName()
+        {
+            return this.firstName;
+        }
+        public void setFirstName(String firstName)
+        {
+            this.firstName = firstName;
+        }
+
+        public String getLastName()
+        {
+            return this.lastName;
+        }
+        public void setLastName(String lastName)
+        {
+            this.lastName = lastName;
+        }
+
+        public String getCity()
+        {
+            return this.city;
+        }
+        public void setCity(String city)
+        {
+            this.city = city;
+        }
+
+        public String getState()
+        {
+            return this.state;
+        }
+        public void setState(String state)
+        {
+            this.state = state;
+        }
+
+        public String getZipCode()
+        {
+            return this.zipCode;
+        }
+        public void setZipCode(String zipCode)
+        {
+            this.zipCode = zipCode;
+        }
+
+        public DateTime getAccountCreationDate()
+        {
+            return this.accountCreationDate;
+        }
+        public void setAccountCreationDate(DateTime accountCreationDate)
+        {
+            this.accountCreationDate = accountCreationDate;
+        }
     }
 }
