@@ -10,7 +10,7 @@ using System.Web;
 /// 
 /// Written by Craig Smith 9/8/15
 /// </summary>
-namespace cisseniorproject.security.data
+namespace cisseniorproject.dataobjects
 {
 
 

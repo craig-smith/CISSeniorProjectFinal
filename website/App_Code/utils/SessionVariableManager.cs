@@ -1,4 +1,4 @@
-﻿using cisseniorproject.dataobjects.data;
+﻿using cisseniorproject.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

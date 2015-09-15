@@ -1,5 +1,4 @@
-﻿using cisseniorproject.dataobjects.data;
-using cisseniorproject.dataobjects.data.dao;
+﻿using cisseniorproject.dataobjects;
 using cisseniorproject.security;
 using cisseniorproject.utils;
 using System;

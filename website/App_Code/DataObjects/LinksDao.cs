@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.OleDb;
-using cisseniorproject.dataobjects.data;
+using cisseniorproject.dataobjects;
 
 /// <summary>
 /// Summary description for LinksDao
 /// 
 /// Data Access object to pull data from the Links Table
 /// </summary>
-namespace cisseniorproject.dataobjects.data.dao
+namespace cisseniorproject.dataobjects
 {
 
 

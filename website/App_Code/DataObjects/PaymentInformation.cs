@@ -10,7 +10,7 @@ using System.Web;
 /// 
 /// Written by Craig Smith 9/8/15
 /// </summary>
-namespace cisseniorproject.dataobjects.data
+namespace cisseniorproject.dataobjects
 {
 
 
@@ -66,7 +66,7 @@ namespace cisseniorproject.dataobjects.data
         {
             return this.creditCardType;
         }
-        public void setCreditCardType()
+        public void setCreditCardType(String creditCardType)
         {
             this.creditCardType = creditCardType;
         }
