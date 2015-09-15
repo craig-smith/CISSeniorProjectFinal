@@ -11,7 +11,7 @@ using System.Web;
 /// Written by Craig Smith 9/8/15
 /// 
 /// </summary>
-namespace cisseniorproject.dataobjects.data
+namespace cisseniorproject.dataobjects
 {
 
     public class InventoryItem

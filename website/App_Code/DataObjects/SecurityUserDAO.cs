@@ -7,7 +7,7 @@ using System.Web;
 /// <summary>
 /// Summary description for SecurityUserDAO
 /// </summary>
-namespace cisseniorproject.security.data.dao
+namespace cisseniorproject.dataobjects
 {
 
 

@@ -5,7 +5,7 @@ using System.Text;
 /*
  * this class holds informaition about user credentials
  * */
-namespace cisseniorproject.security.data
+namespace cisseniorproject.dataobjects
 {
 
 
