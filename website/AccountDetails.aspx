@@ -13,8 +13,10 @@
     <asp:Label ID="lblnewPassword1" Text="New Password:" runat="server"></asp:Label>
         <asp:TextBox ID="txtNewPassword1" runat="server" Text="Please enter new password"></asp:TextBox><br />
      <asp:Label ID="lblnewPassword2" Text="New Password:" runat="server"></asp:Label>
-        <asp:TextBox ID="txtNewPassword2" runat="server" Text="Please re-enter new password"></asp:TextBox><br /><br />
-
+        <asp:TextBox ID="txtNewPassword2" runat="server" Text="Please re-enter new password"></asp:TextBox><br />
+    <%-- Button will update password --%>
+     <asp:Button ID="btnPasswordChange" Text="Submit" runat="server" OnClick="btnPasswordChange_Click" /><br /><br />
+    
     <%-- Other personal information to be edited --%>
     <asp:Label ID="lblFirstName" Text="First Name:" runat="server"></asp:Label>
         <asp:TextBox ID="txtFirstName" Text="First name" runat="server"></asp:TextBox><br />
@@ -27,5 +29,6 @@
     <asp:Label ID="lblZipcode" Text="Zipcode:" runat="server"></asp:Label>
         <asp:TextBox ID="txtZipcode" Text="Zipcode" runat="server"></asp:TextBox><br />
 
+     <asp:Button ID="btnUpdate" Text="Update Details" runat="server" OnClick="btnUpdate_Click" ValidationGroup="1" />
 </asp:Content>
 
