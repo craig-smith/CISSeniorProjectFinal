@@ -20,7 +20,7 @@ namespace cisseniorproject.dataobjects
 
         public LinksDao()
         {
-            database = System.Configuration.ConfigurationManager.ConnectionStrings["CISSeniorProjectDB"].ConnectionString;
+            database = DatabaseConnectionManager.getDatabaseConnectionString();
         }
 
         public List<Links> getUserLinks(String username)

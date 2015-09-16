@@ -105,3 +105,18 @@ a{
     text-align: center;
     
 }
+.data-entry{
+    width: 300px;
+    clear: both;
+    font-weight: 700;
+    margin: 10px;
+}
+.data-entry input[type="text"]{
+     float: right;
+    background: linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -moz-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+}
+.error-msg {
+    color: red;
+}

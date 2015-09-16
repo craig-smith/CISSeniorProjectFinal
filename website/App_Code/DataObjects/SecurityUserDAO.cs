@@ -35,11 +35,12 @@ namespace cisseniorproject.dataobjects
                     OleDbTransaction transact = sqlConn.BeginTransaction();
                     cmd.Transaction = transact;
 
-                    String insert1 = "INSERT INTO [USERS]([username], [access_level]) VALUES(@username, @accessLevel)";
+                    String insert1 = "INSERT INTO [USERS]([username], [access_level], [account_creation_date]) VALUES(@username, @accessLevel, @accountCreationDate)";
                     cmd.Parameters.Clear();
                     cmd.CommandText = insert1;
                     cmd.Parameters.Add("username", OleDbType.VarChar, 255).Value = newUser.getUsername();
                     cmd.Parameters.Add("accessLevel", OleDbType.VarChar, 255).Value = newUser.getAccessLevel();
+                    cmd.Parameters.Add("accountCreationDate", OleDbType.Date).Value = System.DateTime.Now;
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
 
