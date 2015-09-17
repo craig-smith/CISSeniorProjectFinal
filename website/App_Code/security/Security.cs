@@ -83,5 +83,19 @@ namespace cisseniorproject.security
             }
 
         }
+
+        public static bool changePassword(string oldPassword, string newPassword)
+        {
+            Boolean success = false;
+            PasswordManager passManager = new PasswordManager(getUsername(), oldPassword);
+            Boolean authenticated = passManager.checkPassword();
+
+            if (authenticated)
+            {
+                
+                success = passManager.changePassword(newPassword);
+            }
+            return success;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace cisseniorproject.security
 
         private String username;
         private String password;
+        private int userId;
 
         public PasswordManager(String username, String password)
         {
@@ -49,7 +50,7 @@ namespace cisseniorproject.security
 
             String hashedPass = Convert.ToBase64String(algorithm.ComputeHash(passWithSalt)); //create hash from salt and convert to string for storing in db
 
-            Credentials newPass = new Credentials(username, hashedPass, salt, "2"); //create credentails object to send to db for saving
+            Credentials newPass = new Credentials(userId, username, hashedPass, salt, "2"); //create credentails object to send to db for saving
             return newPass;
         }
         //this method generates a different salt value for each password using the system time
@@ -74,7 +75,10 @@ namespace cisseniorproject.security
                 byte[] hasheduserPass = algorithm.ComputeHash(userSaltedPass);
 
                 bool match = compareByteArrays(dbPass, hasheduserPass);
-
+                if (match)
+                {
+                    userId = userCredentials.getUserId();
+                }
                 return match;
             }
             else
@@ -104,8 +108,9 @@ namespace cisseniorproject.security
             return Encoding.UTF8.GetBytes(s);
         }
         //this method changes a user's password
-        public bool changePassword()
+        public bool changePassword(String newPass)
         {
+            password = newPass;
             Credentials newPassword = generateNewPassword();
 
             bool success = SecurityUserDAO.changePassword(newPassword);

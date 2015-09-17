@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using cisseniorproject.dataobjects;
+using cisseniorproject.utils;
+using cisseniorproject.payment;
 
 public partial class Account_Detials : System.Web.UI.Page
 {
@@ -17,6 +19,11 @@ public partial class Account_Detials : System.Web.UI.Page
         {
             
             getUserData();
+            List<DateTime> dates = DatePicker.getDatesAfterToday(1825);
+            foreach (DateTime date in dates)
+            {
+                ddlCreditCardExpDate.Items.Add(date.ToShortDateString());               
+            }
         }
     }
 
@@ -71,6 +78,49 @@ public partial class Account_Detials : System.Web.UI.Page
             if (success)
             {
                 lblMessage.Text = "Details updated successfully.";
+            }
+        }
+    }
+    protected void btnChangePassword_Click(object sender, EventArgs e)
+    {
+        if (Page.IsValid)
+        {
+            String oldPassword = txtOldPassword.Text;
+            String newPassword = txtNewPassword.Text;
+           Boolean succes = Security.changePassword(oldPassword, newPassword);
+
+           if (succes)
+           {
+               lblPassChangeMsg.Text = "Password change Success!";
+           }
+           else
+           {
+               lblPassChangeMsg.Text = "Sorry there was an error. You may have entered you old password incorrectly.";
+           }
+        }
+        
+    }
+    protected void btnNewCreditCard_Click(object sender, EventArgs e)
+    {
+        if (Page.IsValid)
+        {
+            String creditCardType = txtCreditCardType.Text;
+            String creditCardNumber = txtCreditCardNumber.Text;
+            String creditCardCity = txtCreditCardCity.Text;
+            String creditCardState = txtCreditCardState.Text;
+            DateTime creditCardExpDate = DateTime.Parse(ddlCreditCardExpDate.SelectedItem.Text);
+            String securitCode = txtSecurityCode.Text;
+
+            Boolean success =  PaymentManager.addCreditCard(txtUsername.Text, creditCardType, creditCardNumber, creditCardCity, 
+                creditCardState, creditCardExpDate, securitCode);
+
+            if (success)
+            {
+                lblCreditMsg.Text = "Your Credit Card Information was Successfully Added.";
+            }
+            else
+            {
+                lblCreditMsg.Text = "Sorry, there was a error. Please try again.";    
             }
         }
     }

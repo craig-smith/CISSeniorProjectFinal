@@ -23,7 +23,7 @@ namespace cisseniorproject.dataobjects
         internal static bool createAccount(Credentials newUser)
         {
             Boolean created;
-            String database = System.Configuration.ConfigurationManager.ConnectionStrings["CISSeniorProjectDB"].ConnectionString;
+            String database = DatabaseConnectionManager.getDatabaseConnectionString();
 
             using (OleDbConnection sqlConn = new OleDbConnection(database))
             {
@@ -89,7 +89,7 @@ namespace cisseniorproject.dataobjects
         internal static Credentials getUserCredentials(string username)
         {
             Credentials credentials = null;
-            String database = System.Configuration.ConfigurationManager.ConnectionStrings["CISSeniorProjectDB"].ConnectionString;
+            String database = DatabaseConnectionManager.getDatabaseConnectionString();
 
             using (OleDbConnection sqlConn = new OleDbConnection(database))
             {
@@ -98,7 +98,7 @@ namespace cisseniorproject.dataobjects
                     sqlConn.Open();
                     OleDbCommand cmd = sqlConn.CreateCommand();
 
-                    String select = "SELECT [USERS].username, [USERS].access_level, [PASSWORD].password, [PASSWORD].salt FROM [USERS] " +
+                    String select = "SELECT [USERS].user_id, [USERS].username, [USERS].access_level, [PASSWORD].password, [PASSWORD].salt FROM [USERS] " +
                     "INNER JOIN [PASSWORD] ON [PASSWORD].password_id = [USERS].user_id " +
                     "WHERE [username] = @username";
                     cmd.CommandText = select;
@@ -108,11 +108,12 @@ namespace cisseniorproject.dataobjects
                     OleDbDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
+                        int userId = (int) reader["user_id"];
                         String user = reader["username"].ToString();
                         String password = reader["password"].ToString();
                         String salt = reader["salt"].ToString();
                         String accessLevel = reader["access_level"].ToString();
-                        credentials = new Credentials(user, password, salt, accessLevel);
+                        credentials = new Credentials(userId, user, password, salt, accessLevel);
 
                     }
 
@@ -133,7 +134,37 @@ namespace cisseniorproject.dataobjects
 
         internal static bool changePassword(Credentials newPassword)
         {
-            throw new NotImplementedException();
+            String database = DatabaseConnectionManager.getDatabaseConnectionString();
+
+            using (OleDbConnection sqlConn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlConn.Open();
+                    String update = "UPDATE [PASSWORD] SET [password] = @password, [salt] = @salt WHERE [password_id] = @userId";
+
+                    OleDbCommand cmd = new OleDbCommand(update, sqlConn);
+                    cmd.Parameters.Add("password", OleDbType.VarChar, 255).Value = newPassword.getPassword();
+                    cmd.Parameters.Add("salt", OleDbType.VarChar, 255).Value = newPassword.getSalt();
+                    cmd.Parameters.Add("userId", OleDbType.Integer).Value = newPassword.getUserId();
+
+                    int rows = cmd.ExecuteNonQuery();
+
+                    if (rows == 1)
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+                catch(OleDbException ex)
+                {
+                    return false;
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
         }
     }
 }

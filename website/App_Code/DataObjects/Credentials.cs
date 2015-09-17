@@ -11,13 +11,15 @@ namespace cisseniorproject.dataobjects
 
     public class Credentials
     {
+        int userId;
         private String username;
         private String password;
         private String accessLevel;
         private String salt;
 
-        public Credentials(String username, String password, String salt, String accessLevel)
+        public Credentials(int userId, String username, String password, String salt, String accessLevel)
         {
+            this.userId = userId;
             this.username = username;
             this.password = password;
             this.salt = salt;
@@ -43,5 +45,10 @@ namespace cisseniorproject.dataobjects
         {
             return salt;
         }
+        public int getUserId()
+        {
+            return userId;
+        }
+        
     }
 }

@@ -106,12 +106,12 @@ a{
     
 }
 .data-entry{
-    width: 300px;
+    width: 400px;
     clear: both;
     font-weight: 700;
     margin: 10px;
 }
-.data-entry input[type="text"]{
+.data-entry input[type="text"], select{
      float: right;
     background: linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
@@ -119,4 +119,10 @@ a{
 }
 .error-msg {
     color: red;
+}
+#change-password{
+    margin-top: 20px;
+}
+#change-password h2{
+    text-decoration: underline;
 }

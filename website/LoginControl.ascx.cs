@@ -42,6 +42,10 @@ public partial class LoginControl : System.Web.UI.UserControl
                 control.reloadLinks();
                 Response.Redirect(Request.Path);
             }
+            else
+            {
+                lblLoginMessage.Text = "Wrong Username or Password. Please Try Again.";
+            }
         }
     }
     protected void btnCreateAccount_Click(object sender, EventArgs e)
