@@ -11,6 +11,7 @@
 <head runat="server">
     <link rel="stylesheet" type="text/css" href="CSS/normalize.css" />
     <link rel="stylesheet" type="text/css" href="CSS/main.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <title></title>
     <asp:ContentPlaceHolder id="head" runat="server" >
     </asp:ContentPlaceHolder>

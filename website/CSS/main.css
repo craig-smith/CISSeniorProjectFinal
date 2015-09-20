@@ -31,7 +31,7 @@ body {
 }
 #body{
     float: right;
-    width: 65%;
+    min-width: 65%;
     min-height: 800px;    
     margin-top: 30px;
     margin-bottom: 20px;
@@ -120,9 +120,14 @@ a{
 .error-msg {
     color: red;
 }
-#change-password{
+.collapse {
     margin-top: 20px;
+    border: solid;
+    background-color: lightgray;
 }
-#change-password h2{
+.collapse h2{
     text-decoration: underline;
+}
+.hide-grid-column{
+    display: none;
 }

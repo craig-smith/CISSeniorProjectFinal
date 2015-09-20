@@ -24,6 +24,8 @@ public partial class Account_Detials : System.Web.UI.Page
             {
                 ddlCreditCardExpDate.Items.Add(date.ToShortDateString());               
             }
+            
+            GridView1.DataBind();
         }
     }
 
@@ -117,6 +119,7 @@ public partial class Account_Detials : System.Web.UI.Page
             if (success)
             {
                 lblCreditMsg.Text = "Your Credit Card Information was Successfully Added.";
+                GridView1.DataBind();
             }
             else
             {

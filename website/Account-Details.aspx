@@ -2,11 +2,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <title>Williams - Account Details</title>
+    <script src="Scripts/collapse.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContentPlaceHolder" Runat="Server">
+    <asp:TextBox ID="collapseLastViewed" runat="server" CssClass="hide-grid-column" ClientIDMode="Static"></asp:TextBox>
     <h1>Account Details</h1>
-    <p>Please fill in all fields to set up your account.</p>
-    <div id="account-details" class="minimized">
+    <p>Click on a section to edit your details.</p>
+    <div id="account-details" class="collapse">
         <h2>Contact Details</h2>
         <div class="data-entry">
             <asp:Label ID="lblUserName" Text="Username: " runat="server"></asp:Label>
@@ -56,7 +58,7 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Zip code is required!" ControlToValidate="txtZipCode" ValidationGroup="1" Display="Dynamic"></asp:RequiredFieldValidator>
         </div>
     </div>
-    <div id="change-password" class="minimized">
+    <div id="change-password" class="collapse">
         <h2>Change Password</h2>
         <div class="data-entry">
             <asp:Label ID="lblOldPassword" Text="Old Password: " runat="server"></asp:Label>
@@ -83,7 +85,7 @@
         </div>
     </div>
     
-    <div id="payment-details" class="minimized">
+    <div id="payment-details" class="collapse">
         <h2>Payment Details</h2>
         <h3>Enter new Payment Method</h3>
         <div class="data-entry">
@@ -121,6 +123,85 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ErrorMessage="Card State is Required" ControlToValidate="txtCreditCardState" ValidationGroup="3"></asp:RequiredFieldValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ErrorMessage="Securiy Code is Required" ControlToValidate="txtSecurityCode" ValidationGroup="3"></asp:RequiredFieldValidator>
         </div>
+        <h3>Edit Existing Payment Methods</h3>
+        <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False" DataKeyNames="payment_information_id">
+            <Columns>
+                <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                <asp:BoundField DataField="payment_information_id" HeaderText="payment_information_id" InsertVisible="False" ReadOnly="True" SortExpression="payment_information_id" >
+                <ControlStyle CssClass="hide-grid-column" />
+                <HeaderStyle CssClass="hide-grid-column" />
+                <ItemStyle CssClass="hide-grid-column" />
+                </asp:BoundField>
+                <asp:BoundField DataField="user_id" HeaderText="user_id" SortExpression="user_id" >
+                <ControlStyle CssClass="hide-grid-column" />
+                <HeaderStyle CssClass="hide-grid-column" />
+                <ItemStyle CssClass="hide-grid-column" />
+                </asp:BoundField>
+                <asp:BoundField DataField="credit_card_type" HeaderText="credit_card_type" SortExpression="credit_card_type" />
+                <asp:BoundField DataField="credit_card_number" HeaderText="credit_card_number" SortExpression="credit_card_number" />
+                <asp:BoundField DataField="card_city" HeaderText="card_city" SortExpression="card_city" />
+                <asp:BoundField DataField="card_state" HeaderText="card_state" SortExpression="card_state" />
+                <asp:BoundField DataField="card_exp_date" HeaderText="card_exp_date" SortExpression="card_exp_date" />
+                <asp:BoundField DataField="security_code" HeaderText="security_code" SortExpression="security_code" />
+            </Columns>
+        </asp:GridView>
+        
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:CISSeniorProjectDB %>" DeleteCommand="DELETE FROM [PAYMENT_INFORMATION] WHERE [payment_information_id] = ? AND (([user_id] = ?) OR ([user_id] IS NULL AND ? IS NULL)) AND (([credit_card_type] = ?) OR ([credit_card_type] IS NULL AND ? IS NULL)) AND (([credit_card_number] = ?) OR ([credit_card_number] IS NULL AND ? IS NULL)) AND (([card_city] = ?) OR ([card_city] IS NULL AND ? IS NULL)) AND (([card_state] = ?) OR ([card_state] IS NULL AND ? IS NULL)) AND (([card_exp_date] = ?) OR ([card_exp_date] IS NULL AND ? IS NULL)) AND (([security_code] = ?) OR ([security_code] IS NULL AND ? IS NULL))" InsertCommand="INSERT INTO [PAYMENT_INFORMATION] ([payment_information_id], [user_id], [credit_card_type], [credit_card_number], [card_city], [card_state], [card_exp_date], [security_code]) VALUES (?, ?, ?, ?, ?, ?, ?, ?)" OldValuesParameterFormatString="original_{0}" ProviderName="<%$ ConnectionStrings:CISSeniorProjectDB.ProviderName %>" SelectCommand="SELECT * FROM [PAYMENT_INFORMATION] WHERE ([user_id] = ?)" UpdateCommand="UPDATE [PAYMENT_INFORMATION] SET [user_id] = ?, [credit_card_type] = ?, [credit_card_number] = ?, [card_city] = ?, [card_state] = ?, [card_exp_date] = ?, [security_code] = ? WHERE [payment_information_id] = ? AND (([user_id] = ?) OR ([user_id] IS NULL AND ? IS NULL)) AND (([credit_card_type] = ?) OR ([credit_card_type] IS NULL AND ? IS NULL)) AND (([credit_card_number] = ?) OR ([credit_card_number] IS NULL AND ? IS NULL)) AND (([card_city] = ?) OR ([card_city] IS NULL AND ? IS NULL)) AND (([card_state] = ?) OR ([card_state] IS NULL AND ? IS NULL)) AND (([card_exp_date] = ?) OR ([card_exp_date] IS NULL AND ? IS NULL)) AND (([security_code] = ?) OR ([security_code] IS NULL AND ? IS NULL))">
+            <DeleteParameters>
+                <asp:Parameter Name="original_payment_information_id" Type="Int32" />
+                <asp:Parameter Name="original_user_id" Type="Int32" />
+                <asp:Parameter Name="original_user_id" Type="Int32" />
+                <asp:Parameter Name="original_credit_card_type" Type="String" />
+                <asp:Parameter Name="original_credit_card_type" Type="String" />
+                <asp:Parameter Name="original_credit_card_number" Type="String" />
+                <asp:Parameter Name="original_credit_card_number" Type="String" />
+                <asp:Parameter Name="original_card_city" Type="String" />
+                <asp:Parameter Name="original_card_city" Type="String" />
+                <asp:Parameter Name="original_card_state" Type="String" />
+                <asp:Parameter Name="original_card_state" Type="String" />
+                <asp:Parameter Name="original_card_exp_date" Type="DateTime" />
+                <asp:Parameter Name="original_card_exp_date" Type="DateTime" />
+                <asp:Parameter Name="original_security_code" Type="String" />
+                <asp:Parameter Name="original_security_code" Type="String" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="payment_information_id" Type="Int32" />
+                <asp:Parameter Name="user_id" Type="Int32" />
+                <asp:Parameter Name="credit_card_type" Type="String" />
+                <asp:Parameter Name="credit_card_number" Type="String" />
+                <asp:Parameter Name="card_city" Type="String" />
+                <asp:Parameter Name="card_state" Type="String" />
+                <asp:Parameter Name="card_exp_date" Type="DateTime" />
+                <asp:Parameter Name="security_code" Type="String" />
+            </InsertParameters>
+            <SelectParameters>
+                <asp:ControlParameter  ControlID="lblUserId" Name="user_id" Type="Int32" PropertyName="Text" />
+            </SelectParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="user_id" Type="Int32" />
+                <asp:Parameter Name="credit_card_type" Type="String" />
+                <asp:Parameter Name="credit_card_number" Type="String" />
+                <asp:Parameter Name="card_city" Type="String" />
+                <asp:Parameter Name="card_state" Type="String" />
+                <asp:Parameter Name="card_exp_date" Type="DateTime" />
+                <asp:Parameter Name="security_code" Type="String" />
+                <asp:Parameter Name="original_payment_information_id" Type="Int32" />
+                <asp:Parameter Name="original_user_id" Type="Int32" />
+                <asp:Parameter Name="original_user_id" Type="Int32" />
+                <asp:Parameter Name="original_credit_card_type" Type="String" />
+                <asp:Parameter Name="original_credit_card_type" Type="String" />
+                <asp:Parameter Name="original_credit_card_number" Type="String" />
+                <asp:Parameter Name="original_credit_card_number" Type="String" />
+                <asp:Parameter Name="original_card_city" Type="String" />
+                <asp:Parameter Name="original_card_city" Type="String" />
+                <asp:Parameter Name="original_card_state" Type="String" />
+                <asp:Parameter Name="original_card_state" Type="String" />
+                <asp:Parameter Name="original_card_exp_date" Type="DateTime" />
+                <asp:Parameter Name="original_card_exp_date" Type="DateTime" />
+                <asp:Parameter Name="original_security_code" Type="String" />
+                <asp:Parameter Name="original_security_code" Type="String" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
     </div>
 </asp:Content>
 
