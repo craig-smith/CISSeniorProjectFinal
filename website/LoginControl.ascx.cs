@@ -1,4 +1,6 @@
-﻿using cisseniorproject.security;
+﻿using cisseniorproject.dataobjects;
+using cisseniorproject.security;
+using cisseniorproject.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +18,39 @@ public partial class LoginControl : System.Web.UI.UserControl
 
     private void checkLogin()
     {
-        if (Security.isLoggedIn())
+        bool isLoggedIn = Security.isLoggedIn();
+        if (isLoggedIn)
         {
-            userPanel.Visible = true;
-            String username = Security.getUsername();
-            lblMsg.Text = "Welcome back " + username + "!";
+            setUpUserPanel();
+            
         }
         else
         {
            
             loginPanel.Visible = true;
             
+        }
+    }
+
+    private void setUpUserPanel()
+    {
+        userPanel.Visible = true;
+        String username = Security.getUsername();
+        lblMsg.Text = "Welcome back " + username + "!";
+        List<InventoryItem> items = SessionVariableManager.getUserCart();
+        if (items != null)
+        {
+
+
+            int itemCount = items.Count();
+            double price = 0;
+
+            foreach (InventoryItem i in items)
+            {
+                price += i.getSalePrice();
+            }
+
+            lblCartItems.Text = "You have " + itemCount + " item(s) in your cart with a total of " +string.Format("{0:C}", price) + ".";
         }
     }
     protected void btnLogin_Click(object sender, EventArgs e)

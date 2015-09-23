@@ -15,6 +15,7 @@ namespace cisseniorproject.utils
     {
         private const String USERNAME = "username";
         private const String LINKS = "links";
+        private const String USER_CART = "user_cart";
         public SessionVariableManager()
         {
 
@@ -43,6 +44,42 @@ namespace cisseniorproject.utils
         public static void setLinks(List<Links> links)
         {
             HttpContext.Current.Session[LINKS] = links;
+        }
+
+        public static void addItemToCart(InventoryItem item)
+        {
+            List<InventoryItem> items = (List<InventoryItem>)HttpContext.Current.Session[USER_CART];
+            if (items != null)
+            {
+                items.Add(item);
+                HttpContext.Current.Session[USER_CART] = items;
+            }
+            else
+            {
+                items = new List<InventoryItem>();
+                items.Add(item);
+                HttpContext.Current.Session[USER_CART] = items;
+            }
+           
+        }
+
+        public static List<InventoryItem> getUserCart()
+        {
+            return (List<InventoryItem>)HttpContext.Current.Session[USER_CART];
+        }
+
+        public static void removeItemFromCart(InventoryItem item)
+        {
+            List<InventoryItem> items = (List<InventoryItem>)HttpContext.Current.Session[USER_CART];
+            foreach (InventoryItem i in items)
+            {
+                if (i.getProductName() == item.getProductName())
+                {
+                    items.Remove(i);
+                }
+            }
+
+           
         }
 
         private static Boolean isNotNull(object sessionVarialbe)

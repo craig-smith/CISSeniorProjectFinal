@@ -24,6 +24,7 @@ namespace cisseniorproject.dataobjects
         private Double salePrice;
         private String shortDescription;
         private String longDescription;
+        private String imageUrl;
 
         public InventoryItem()
         {
@@ -31,7 +32,7 @@ namespace cisseniorproject.dataobjects
         }
 
         public InventoryItem(int inventoryId, String productName, int productCount,
-            int itemsOnHold, Double unitPrice, Double salePrice, String shortDescription, String longDescription)
+            int itemsOnHold, Double unitPrice, Double salePrice, String shortDescription, String longDescription, String imageUrl)
         {
             this.inventoryId = inventoryId;
             this.productName = productName;
@@ -41,6 +42,7 @@ namespace cisseniorproject.dataobjects
             this.salePrice = salePrice;
             this.shortDescription = shortDescription;
             this.longDescription = longDescription;
+            this.imageUrl = imageUrl;
         }
 
         public int getInventoryId()
@@ -113,6 +115,15 @@ namespace cisseniorproject.dataobjects
         public void setLongDescription(String longDescription)
         {
             this.longDescription = longDescription;
+        }
+
+        public String getImageUrl()
+        {
+            return this.imageUrl;
+        }
+        public void setImageUrl(String imageUrl)
+        {
+            this.imageUrl = imageUrl;
         }
 
     }

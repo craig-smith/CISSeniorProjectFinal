@@ -131,3 +131,50 @@ a{
 .hide-grid-column{
     display: none;
 }
+
+.inventory-item{
+    border: solid;
+    background-color: lightgray;
+    padding: 10px;
+    margin: 10px;
+    
+}
+.inventory-item img{
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+.inventory-item a{
+    font-weight: 600;
+    
+}
+.inventory-short-description{
+   
+    margin: 10px;
+}
+.inventory-item .item-price{
+    
+    
+}
+.inventory-view-item{
+    width: 100%;
+    display: block;
+}
+.inventory-long-description{
+    width: 500px;
+}
+.inventory-view-item .item-price{
+    float: right;
+    font-weight: 600;
+}
+
+.inventory-view-item .cart-button{
+    float: left;    
+}
+
+.cart-button input[type="button"]{
+    background: linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -moz-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    background: -ms-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+}

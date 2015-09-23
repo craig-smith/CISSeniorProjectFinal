@@ -21,5 +21,7 @@
     </div>
 </asp:Panel>
 <asp:Panel ID="userPanel" runat="server" Visible="false">
-    <asp:Label ID="lblMsg" Text="User is logged in!" runat="server"></asp:Label>
+    <asp:Label ID="lblMsg" Text="User is logged in!" runat="server"></asp:Label> <br />
+    <asp:Label ID="lblCartItems" runat="server" ClientIDMode="Static"></asp:Label> <br />
+    <asp:LinkButton ID="lnkCart" runat="server" Text="View Cart Now" PostBackUrl="~/My-Cart.aspx" ></asp:LinkButton>
 </asp:Panel>

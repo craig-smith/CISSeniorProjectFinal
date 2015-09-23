@@ -68,36 +68,6 @@ namespace cisseniorproject.dataobjects
                     sqlCon.Close();
                 }
             }
-        }
-
-        public  PaymentInformationDataSet getUserCreditCards(int userId)
-        {
-            using (OleDbConnection sqlConn = new OleDbConnection(database))
-            {
-                List<PaymentInformation> creditCardList = new List<PaymentInformation>();
-                try
-                {
-                    sqlConn.Open();
-                    String select = "SELECT * FROM [PAYMENT_INFORMATION WHERE [user_id] = @userId";
-
-                    OleDbDataAdapter adapter = new OleDbDataAdapter(select, sqlConn);
-                    adapter.SelectCommand.Parameters.Add("userId", OleDbType.VarChar, 255).Value = userId;
-
-                    PaymentInformationDataSet dataSet = new PaymentInformationDataSet();
-                    adapter.Fill(dataSet, "PAYMENT_INFORMATION");
-
-                    return dataSet;
-
-                }
-                catch (OleDbException ex)
-                {
-                    return new PaymentInformationDataSet();
-                }
-                finally
-                {
-                    sqlConn.Close();
-                }
-            }
-        }
+        }        
     }
 }
