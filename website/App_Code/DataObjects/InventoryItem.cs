@@ -17,12 +17,12 @@ namespace cisseniorproject.dataobjects
     public class InventoryItem
     {
         private int inventoryId;
-        private String productName;
-        private int productCount;
+        public String productName { get; set; }
+        public int productCount { get; set; }
         private int itemsOnHold;
-        private Double unitPrice;
-        private Double salePrice;
-        private String shortDescription;
+        public Double unitPrice { get; set; }
+        public Double salePrice { get; set; }
+        public String shortDescription { get; set; }
         private String longDescription;
         private String imageUrl;
 
@@ -126,5 +126,11 @@ namespace cisseniorproject.dataobjects
             this.imageUrl = imageUrl;
         }
 
+
+        internal void orderItem(int count)
+        {
+            productCount -= count;
+            itemsOnHold += count;
+        }
     }
 }

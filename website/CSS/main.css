@@ -111,7 +111,7 @@ a{
     font-weight: 700;
     margin: 10px;
 }
-.data-entry input[type="text"], select{
+.data-entry input[type="text"], .data-entry select{
      float: right;
     background: linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
@@ -148,6 +148,9 @@ a{
     font-weight: 600;
     
 }
+.inventory-item input[type="button"]{
+    float: right;
+}
 .inventory-short-description{
    
     margin: 10px;
@@ -178,3 +181,54 @@ a{
     background: -moz-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -ms-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
 }
+.cart-item{
+    margin: 50px;
+}
+
+.cart-item img{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    float:left;
+}
+.cart-item .inventory-short-description{
+    float:left;
+}
+.cart-item-checkbox{
+    width: 400px;    
+}
+.cart-item-checkbox input[type=checkbox]{
+   
+    float: left;
+}
+.cart-item-checkbox label{
+   font-weight: 600;
+   font-style: oblique;
+}
+.cart-item a{
+   margin-left: 50px;   
+}
+
+#cart-order-now{
+    float:left;
+}
+
+#cart-remove-item{
+    float:left;
+    margin-left: 50px;
+}
+.order-item-repeater{
+    background-color: lightgray;
+    border: solid;
+    padding: 10px;
+    margin: 10px;
+}
+
+.order-item{
+    border: inset;
+    margin: 10px;
+}
+.order-price{
+    font-weight: 600;
+}
+

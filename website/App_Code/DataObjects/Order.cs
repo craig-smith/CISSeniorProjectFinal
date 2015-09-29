@@ -43,6 +43,10 @@ namespace cisseniorproject.dataobjects
         public void setOrderId(int orderId)
         {
             this.orderId = orderId;
+            foreach (OrderItem item in orderItems)
+            {
+                item.setOrderId(orderId);
+            }
         }
 
         public PaymentInformation getPaymentInformation()

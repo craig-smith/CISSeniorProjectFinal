@@ -16,10 +16,10 @@ namespace cisseniorproject.dataobjects
 
     public class PaymentInformation
     {
-        private int paymentInformationId;
+        public int paymentInformationId { get; set; }
         private User user;
-        private String creditCardType;
-        private String creditCardNumber;
+        public String creditCardType { get; set; }
+        public String creditCardNumber { get; set; }
         private String city;
         private String state;
         private DateTime cardExpDate;

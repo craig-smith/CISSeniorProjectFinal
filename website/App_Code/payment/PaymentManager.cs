@@ -44,5 +44,26 @@ namespace cisseniorproject.payment
 
             return success;
         }
+
+        public static List<PaymentInformation> getUserCreditCards(string username)
+        {
+            UserDAO userDataLayer = new UserDAO();
+            User user = userDataLayer.getUserDetails(username);
+
+            PaymentInformationDAO paymentInfoDatalayer = new PaymentInformationDAO();
+            List<PaymentInformation> userPaymentInfo = paymentInfoDatalayer.getUserPaymentInfo(user);
+
+            return userPaymentInfo;
+        }
+
+        public static PaymentInformation getUserCreditCard(int paymentId)
+        {
+            UserDAO userDataLayer = new UserDAO();
+            
+            PaymentInformationDAO dataLayer = new PaymentInformationDAO();
+            PaymentInformation userCreditCard = dataLayer.getUserCreditCard(paymentId);
+
+            return userCreditCard;
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace cisseniorproject.utils
         private const String USERNAME = "username";
         private const String LINKS = "links";
         private const String USER_CART = "user_cart";
+        private const String ORDER = "order";
         public SessionVariableManager()
         {
 
@@ -68,19 +69,21 @@ namespace cisseniorproject.utils
             return (List<InventoryItem>)HttpContext.Current.Session[USER_CART];
         }
 
-        public static void removeItemFromCart(InventoryItem item)
+        public static void removeItemFromCart(int item)
         {
             List<InventoryItem> items = (List<InventoryItem>)HttpContext.Current.Session[USER_CART];
-            foreach (InventoryItem i in items)
-            {
-                if (i.getProductName() == item.getProductName())
+
+            for (int i = 0; i < items.Count; i++ )
+                if (items[i].getInventoryId() == item)
                 {
-                    items.Remove(i);
+                    items.RemoveAt(i);
+                    
                 }
-            }
+            
 
            
         }
+
 
         private static Boolean isNotNull(object sessionVarialbe)
         {
@@ -92,6 +95,25 @@ namespace cisseniorproject.utils
             {
                 return false;
             }
+        }
+
+        public static void clearCart()
+        {
+            List<InventoryItem> items = (List<InventoryItem>) HttpContext.Current.Session[USER_CART];
+            if (items != null)
+            {
+                items.Clear();
+            }
+        }
+
+        public static void setOrderItems(String[] items)
+        {
+            HttpContext.Current.Session[ORDER] = items;
+        }
+        public static String[] getOrderItems()
+        {
+            String[] orderItems = (String[]) HttpContext.Current.Session[ORDER];
+            return orderItems;
         }
     }
 }

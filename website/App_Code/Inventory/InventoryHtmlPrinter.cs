@@ -35,6 +35,8 @@ namespace cisseniorproject.inventory
             htmlBuilder.Append(getPriceDiv());
             htmlBuilder.Append(getLinkHtml());
             htmlBuilder.Append(getClearBothHtml());
+            htmlBuilder.Append(getAddToCartLink());
+            htmlBuilder.Append(getClearBothHtml());
             htmlBuilder.Append(getEndingHtml());
 
             return htmlBuilder.ToString();
@@ -51,6 +53,47 @@ namespace cisseniorproject.inventory
             htmlBuilder.Append(getEndingHtml());
 
             return htmlBuilder.ToString();
+        }
+
+        public string getCartItemHtml()
+        {
+            htmlBuilder.Append(getBeginningCartItemDiv());
+            htmlBuilder.Append(getItemNameHtml());
+            htmlBuilder.Append(getImageHtml());
+            htmlBuilder.Append(getshorItemDescriptionHtml());
+            htmlBuilder.Append(getClearBothHtml());            
+            htmlBuilder.Append(getPriceDiv());
+           
+            if (item.getProductCount() > 1)
+            {
+                htmlBuilder.Append(getCheckBoxDiv());
+            }
+            else
+            {
+                htmlBuilder.Append(getOutOfStockDiv());
+            }
+            
+            htmlBuilder.Append(getEndingHtml());
+
+            return htmlBuilder.ToString();
+        }
+
+        private String getOutOfStockDiv()
+        {
+            return "<div class='out-of-stock'><p>Sorry, this item is currently out of Stock.</p></div>";
+        }
+
+        private String getCheckBoxDiv()
+        {
+            
+                String html = "<div class='cart-item-checkbox'><label><input type='checkbox' id='" + item.getInventoryId() + "' name='" + item.getInventoryId() +"' runat='server'/> Select </label>";
+                html += getLinkHtml() + "</div>";
+            return html;
+        }
+
+        private String getBeginningCartItemDiv()
+        {
+            return "<div class='cart-item'>";
         }
 
         private String getAddToCartLink()
