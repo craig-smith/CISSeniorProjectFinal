@@ -116,6 +116,7 @@ namespace cisseniorproject.dataobjects
         internal PaymentInformation getUserCreditCard(int paymentInfoId)
         {
             PaymentInformation userCreditCard = new PaymentInformation();
+            User user = new User();
             using (OleDbConnection sqlconn = new OleDbConnection(database))
             {
                 try
@@ -136,6 +137,19 @@ namespace cisseniorproject.dataobjects
                     while (reader.Read())
                     {
                         
+                        user.setId((int) reader["user_id"]);
+                        user.setUsername(reader["username"].ToString());
+                        user.setFirstName(reader["first_name"].ToString());
+                        user.setLastName(reader["last_name"].ToString());
+                        user.setAddress(reader["address"].ToString());
+                        user.setCity(reader["city"].ToString());
+                        user.setState(reader["state"].ToString());
+                        user.setZipCode(reader["zip_code"].ToString());
+                        user.setAccountCreationDate(DateTime.Parse(reader["account_creation_date"].ToString()));
+                        user.setEmail(reader["email"].ToString());
+
+                        userCreditCard.setUser(user);
+
                         userCreditCard.setPaymentInformationId((int) reader["payment_information_id"]);
                         userCreditCard.setCreditCardType(reader["credit_card_type"].ToString());
                         userCreditCard.setCreditCardNumber(reader["credit_card_number"].ToString());

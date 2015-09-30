@@ -3,7 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">   
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="mainContentPlaceHolder" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="mainContentPlaceHolder" Runat="Server">   
    <asp:Repeater ID="rptOrderItem" runat="server">
        <HeaderTemplate>
            <div class="order-item-repeater">
@@ -26,14 +26,20 @@
     <div id="paymentMethod">
         <div>Card Number: <asp:DropDownList ID="ddlPaymentMethod" AppendDataBoundItems="true" runat="server" ClientIDMode="Static"></asp:DropDownList></div>
         <div>
-            <asp:CheckBox ID="cbCollectOnDelivery" Text="Collect On Delivery" runat="server" />
+            <asp:CheckBox ID="cbCollectOnDelivery" Text="Collect On Delivery" runat="server" onclick="" /><br />
+            Payment Amount: <asp:TextBox ID="txtPaymentAmount" runat="server" Enabled="false"></asp:TextBox>
         </div>
-        <div>
-            <asp:Label ID="lblMessage" runat="server"></asp:Label>
+            <div>
+                <h2><asp:Label ID="lblMessage" runat="server"></asp:Label></h2>
+                <div class="error-msg">
+                <asp:RangeValidator ID="paymentAmountValidator" runat="server" ErrorMessage="Payment amount must be at least 10 percent of order cost!" ControlToValidate="txtPaymentAmount" Type="Double" ValidationGroup="submit" Display="Dynamic"></asp:RangeValidator>
+                <asp:RequiredFieldValidator ID="paymentAmountRequiredValidator" runat="server" ErrorMessage="Payment amount is required!" ControlToValidate="txtPaymentAmount" ValidationGroup="submit" Display="Dynamic"></asp:RequiredFieldValidator>
+       
+            </div>
         </div>
         <div>
             <asp:Button ID="btnCalculateOrder" Text="Calculate Order" runat="server" OnClick="btnCalculateOrder_Click" />
-            <asp:Button ID="btnSubmit" Text="Submit Order" runat="server" OnClick="btnSubmit_Click" />
+            <asp:Button ID="btnSubmit" Text="Submit Order" runat="server" OnClick="btnSubmit_Click" ValidationGroup="submit"/>
         </div>
        
     </div>

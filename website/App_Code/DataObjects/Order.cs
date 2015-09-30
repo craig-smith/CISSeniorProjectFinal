@@ -21,19 +21,23 @@ namespace cisseniorproject.dataobjects
         private List<OrderItem> orderItems;
         private Boolean validated;
         private Boolean completed;
+        private double paymentAmount;
+        private Boolean collectOnDelivery;
 
         public Order()
         {
 
         }
 
-        public Order(int orderId, PaymentInformation paymentInformation, List<OrderItem> orderItems, Boolean validated, Boolean completed)
+        public Order(int orderId, PaymentInformation paymentInformation, List<OrderItem> orderItems, Boolean validated, Boolean completed, double paymentAmount, Boolean collectOnDelivery)
         {
             this.orderId = orderId;
             this.paymentInformation = paymentInformation;
             this.orderItems = orderItems;
             this.validated = validated;
             this.completed = completed;
+            this.paymentAmount = paymentAmount;
+            this.collectOnDelivery = collectOnDelivery;
         }
 
         public int getOrderId()
@@ -99,6 +103,23 @@ namespace cisseniorproject.dataobjects
         public void setCompleted(Boolean completed)
         {
             this.completed = completed;
+        }
+
+        public double getPaymentAmount()
+        {
+            return this.paymentAmount;
+        }
+        public void setPaymentAmount(double paymentAmount)
+        {
+            this.paymentAmount = paymentAmount;
+        }
+        public Boolean getCollectOnDelivery()
+        {
+            return this.collectOnDelivery;
+        }
+        public void setIsCollctOnDelivery(Boolean collectOnDelivery)
+        {
+            this.collectOnDelivery = collectOnDelivery;
         }
     }
 }

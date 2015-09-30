@@ -19,17 +19,19 @@ namespace cisseniorproject.dataobjects
         private int orderId;
         private int productId;
         private int count;
+        private double salePrice;
 
         public OrderItem()
         {
 
         }
 
-        public OrderItem(int orderId, int productId, int count)
+        public OrderItem(int orderId, int productId, int count, double salePrice)
         {
             this.orderId = orderId;
             this.productId = productId;
             this.count = count;
+            this.salePrice = salePrice;
         }
 
         public int getOrderId()
@@ -57,6 +59,14 @@ namespace cisseniorproject.dataobjects
         public void setCount(int count)
         {
             this.count = count;
+        }
+        public double getSalePrice()
+        {
+            return this.salePrice;
+        }
+        public void setSalePrice(double salePrice)
+        {
+            this.salePrice = salePrice;
         }
     }
 }

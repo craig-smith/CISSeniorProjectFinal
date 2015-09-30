@@ -115,5 +115,10 @@ namespace cisseniorproject.utils
             String[] orderItems = (String[]) HttpContext.Current.Session[ORDER];
             return orderItems;
         }
+
+        public static void removeOrderItems()
+        {
+            HttpContext.Current.Session[ORDER] = null;
+        }
     }
 }

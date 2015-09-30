@@ -72,11 +72,27 @@ public partial class Order : System.Web.UI.Page
         }
         for (int i = 0; i < inventoryItems.Count; i++)
         {
-            double itemPrice = inventoryItems[i].getSalePrice()  * orderedAmount[i];
-            totalCost += itemPrice;
+
+            OrderManager orderManager = new OrderManager();
+            totalCost = orderManager.getTotalOrderCost(inventoryItems, orderedAmount);
         }
 
         lblMessage.Text = "Your total is: " + string.Format("{0:C}", totalCost);
+
+        if (cbCollectOnDelivery.Checked)
+        {
+            txtPaymentAmount.Text = (totalCost * .1).ToString();
+            txtPaymentAmount.Enabled = true;
+            paymentAmountValidator.MinimumValue = (totalCost * .1).ToString();
+            paymentAmountValidator.MaximumValue = totalCost.ToString();
+        }
+        else
+        {
+            txtPaymentAmount.Text = totalCost.ToString();
+            txtPaymentAmount.Enabled = false;
+        }
+        TotalCostHiddenField.Value = totalCost.ToString();
+        
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
@@ -109,6 +125,28 @@ public partial class Order : System.Web.UI.Page
         }
         PaymentInformation userCreditCard = PaymentManager.getUserCreditCard(Convert.ToInt32(ddlPaymentMethod.SelectedValue));
         orderManager.addPaymentInfo(userCreditCard);
+        orderManager.setIsCollectOnDelivery(cbCollectOnDelivery.Checked);
+        orderManager.setPaymentAmount(Convert.ToDouble(txtPaymentAmount.Text));
+
+        int orderNumber = orderManager.submitOrder();
+        if (orderNumber > 0)
+        {
+            lblMessage.Text = "Thank you for your order. Your order number is " + orderNumber + ". Keep this number for reference.";
+            btnCalculateOrder.Enabled = false;
+            btnSubmit.Enabled = false;
+            paymentAmountValidator.Enabled = false;
+            paymentAmountRequiredValidator.Enabled = false;
+
+            foreach (InventoryItem item in orderInventory)
+            {
+                SessionVariableManager.removeItemFromCart(item.getInventoryId());
+                
+            }
+        }
+        else
+        {
+            lblMessage.Text = "Sorry, there was an error with your order. Please review your selection and try again.";
+        }
         
     }
 }
