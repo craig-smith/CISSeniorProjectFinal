@@ -14,7 +14,11 @@
            <div class="order-item-on-hand"><p>Items On Hand: <%#Eval("productCount")%></p></div>
                <div class="order-item-description"><p><%#Eval("shortDescription")%></p></div>
                <div class="order-price"><p>Unit Price: <span><%#Eval("salePrice", "{0:c}")%></span></p></div>
-           <div class="order-item-ordered">Amount Ordered: <asp:TextBox ID="txtCount" runat="server" ClientIDMode="Predictable" EnableViewState="true" ></asp:TextBox></div>
+           <div class="order-item-ordered">Amount Ordered: <asp:TextBox ID="txtCount" runat="server" ClientIDMode="Predictable" EnableViewState="true" ValidationGroup="submit"></asp:TextBox></div>
+               <div class="error-msg">
+                   <asp:RequiredFieldValidator ID="itemCountRequiredValidator" runat="server" ErrorMessage="Item Count is required." ValidationGroup="submit" ControlToValidate="txtCount"></asp:RequiredFieldValidator>
+                   <asp:CompareValidator ID="itemCountCompareValidator" runat="server" ErrorMessage="You must enter a whole number." Operator="GreaterThanEqual" ValueToCompare="0" Type="Integer" ControlToValidate="txtCount" ValidationGroup="submit"></asp:CompareValidator>
+               </div>
            </div>
        </ItemTemplate>
        <FooterTemplate>

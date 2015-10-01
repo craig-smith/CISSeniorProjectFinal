@@ -91,7 +91,7 @@ public partial class Order : System.Web.UI.Page
             txtPaymentAmount.Text = totalCost.ToString();
             txtPaymentAmount.Enabled = false;
         }
-        TotalCostHiddenField.Value = totalCost.ToString();
+       
         
     }
     protected void btnSubmit_Click(object sender, EventArgs e)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using cisseniorproject.dataobjects;
+using cisseniorproject.inventory;
 
 /// <summary>
 /// Summary description for OrderManager
@@ -39,6 +40,7 @@ namespace cisseniorproject.order
                 orderItems.Add(orderItem);
 
                 inventoryItem.orderItem(count);
+                inventoryItems.Add(inventoryItem);
                 return true;
             }
             else
@@ -94,9 +96,18 @@ namespace cisseniorproject.order
                 }
                 
                
-            }           
-
+            }
+            updateInventory(inventoryItems);
             return orderNumber;
+        }
+
+        private void updateInventory(List<InventoryItem> inventoryItems)
+        {
+            foreach (InventoryItem item in inventoryItems)
+            {
+                InventoryManager.updateInventoryItem(item);
+            }
+            
         }
 
         public double getTotalOrderCost(List<InventoryItem> items, List<Double> itemCount)

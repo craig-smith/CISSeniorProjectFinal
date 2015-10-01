@@ -171,5 +171,51 @@ namespace cisseniorproject.dataobjects
                 }
             }
         }
+
+        internal void updateInventoryItem(InventoryItem item)
+        {
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String update = "UPDATE [INVENTORY_ITEM] SET " +
+                        "[product_name] = @productName, " +
+                        "[product_count] = @productCount, " +
+                        "[items_on_hold] = @itemsOnHold, " +
+                        "[unit_price] = @unitPrice, " +
+                        "[sale_price] = @salePrice, " +
+                        "[short_description] = @shortDescription, " +
+                        "[long_description] = @longDescription, " +
+                        "[image_path] = @imagePath " +
+                        "WHERE [inventory_id] = @inventoryId";
+
+                    cmd.CommandText = update;
+                    cmd.Parameters.Add("productName", OleDbType.VarChar, 255).Value = item.getProductName();
+                    cmd.Parameters.Add("productCount", OleDbType.Integer).Value = item.getProductCount();
+                    cmd.Parameters.Add("itemsOnHold", OleDbType.Integer).Value = item.getItemsOnHold();
+                    cmd.Parameters.Add("unitPrice", OleDbType.Currency).Value = item.getUnitPrice();
+                    cmd.Parameters.Add("salePrice", OleDbType.Currency).Value = item.getSalePrice();
+                    cmd.Parameters.Add("shortDescription", OleDbType.VarChar, 255).Value = item.getShortDescription();
+                    cmd.Parameters.Add("longDescription", OleDbType.LongVarChar).Value = item.getLongDescription();
+                    cmd.Parameters.Add("imagePath", OleDbType.VarChar, 255).Value = item.getImageUrl();
+                    cmd.Parameters.Add("inventoryId", OleDbType.Integer).Value = item.getInventoryId();
+
+                    int rows = cmd.ExecuteNonQuery();
+                    
+                }
+                catch(OleDbException ex)
+                {
+
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+            
+        }
     }
 }
