@@ -30,7 +30,7 @@
     <div id="paymentMethod">
         <div>Card Number: <asp:DropDownList ID="ddlPaymentMethod" AppendDataBoundItems="true" runat="server" ClientIDMode="Static"></asp:DropDownList></div>
         <div>
-            <asp:CheckBox ID="cbCollectOnDelivery" Text="Collect On Delivery" runat="server" onclick="" /><br />
+            <asp:CheckBox ID="cbCollectOnDelivery" Text="Collect On Delivery" runat="server" /><br />
             Payment Amount: <asp:TextBox ID="txtPaymentAmount" runat="server" Enabled="false"></asp:TextBox>
         </div>
             <div>

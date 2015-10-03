@@ -232,3 +232,12 @@ a{
     font-weight: 600;
 }
 
+.my-order{
+    border: solid;
+    background-color: lightgray;
+    padding: 20px;
+    margin: 20px;
+}
+.my-order-item{
+    margin-left: 20px;
+}

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using cisseniorproject.payment;
+using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -89,6 +91,95 @@ namespace cisseniorproject.dataobjects
                 finally
                 {
                     sqlconn.Close();
+                }
+            }
+        }
+
+
+
+        internal List<Order> getUserOrders(String username)
+        {
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                List<Order> userOrders = new List<Order>();
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String select = "SELECT * FROM [ORDERS] INNER JOIN [USERS] ON [USERS].user_id = [ORDERS].user_id WHERE [USERS].username = @username";
+                    cmd.CommandText = select;
+                    cmd.Parameters.Add("username", OleDbType.VarChar, 255).Value = username;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Order userOrder = new Order();
+                        userOrder.setOrderIdForOrderOnly((int)reader["order_id"]);
+                        userOrder.setUserId((int)reader["Orders.user_id"]);
+                        userOrder.setValidated((bool)reader["validated"]);
+                        userOrder.setIsCollctOnDelivery((bool)reader["collect_on_delivery"]);
+                        userOrder.setCompleted((bool)reader["completed"]);
+                        userOrder.setPaymentAmount(Double.Parse(reader["payment_amount"].ToString(), NumberStyles.Currency));
+                        
+                        userOrder.setPaymentInformation(PaymentManager.getUserCreditCard((int)reader["payment_id"]));
+                       
+                        userOrder.setOrderItems(getOrderItems(userOrder.getOrderId()));
+
+                        userOrders.Add(userOrder);
+                    }
+
+                    return userOrders;
+                }
+                catch (OleDbException ex)
+                {
+                    userOrders = null;
+                    return userOrders;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
+
+        private List<OrderItem> getOrderItems(int orderId)
+        {
+            using (OleDbConnection sqlConn = new OleDbConnection(database))
+            {
+                List<OrderItem> orderItems = new List<OrderItem>();
+                try
+                {
+                    sqlConn.Open();
+                    OleDbCommand cmd = sqlConn.CreateCommand();
+
+                    String select = "SELECT * FROM [ORDER_ITEMS] WHERE [order_id] = @orderId";
+                    cmd.CommandText = select;
+                    cmd.Parameters.Add("orderId", OleDbType.Integer).Value = orderId;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        OrderItem orderItem = new OrderItem();
+                        orderItem.setOrderId((int)reader["order_id"]);
+                        orderItem.setProductId((int)reader["product_id"]);
+                        orderItem.setCount((int)reader["count"]);
+                        orderItem.setSalePrice(Double.Parse(reader["sale_price"].ToString(), NumberStyles.Currency));
+
+                        orderItems.Add(orderItem);
+                    }
+
+                    return orderItems;
+                }
+                catch (OleDbException ex)
+                {
+                    orderItems = null;
+                    return orderItems;
+                }
+                finally
+                {
+                    sqlConn.Close();
                 }
             }
         }

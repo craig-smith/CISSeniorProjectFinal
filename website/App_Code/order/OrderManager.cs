@@ -133,5 +133,58 @@ namespace cisseniorproject.order
 
             return totalCost;
         }
+
+        public List<UserOrder> getUserOrders(string userName)
+        {
+            OrderDAO dataLayer = new OrderDAO();
+            List<Order> orders = dataLayer.getUserOrders(userName);
+            List<UserOrder> userOrders = new List<UserOrder>();
+
+            foreach (Order order in orders)
+            {
+                UserOrder userOrder = new UserOrder();
+                userOrder.orderId = order.getOrderId();
+                userOrder.orderTotal = getOrderTotal(order);
+
+                userOrder.orderItems = getUserOrderItems(order);
+                userOrder.paymentAmount = order.getPaymentAmount();
+                userOrder.creditCardNumber = order.getPaymentInformation().getCreditCardNumber();
+                userOrders.Add(userOrder);
+            }
+
+            return userOrders;
+
+        }
+
+        private double getOrderTotal(Order order)
+        {
+            double orderTotal = 0;
+            foreach (OrderItem orderItem in order.getOrderItems())
+            {
+                orderTotal += orderItem.getSalePrice() * orderItem.getCount();
+            }
+
+            return orderTotal;
+        }
+
+        private List<UserOrderItem> getUserOrderItems(Order order)
+        {
+            List<UserOrderItem> userOrderItems = new List<UserOrderItem>();
+            foreach (OrderItem orderItem in order.getOrderItems())
+            {
+                UserOrderItem item = new UserOrderItem();
+                item.itemCost = orderItem.getSalePrice();
+                item.itemCount = orderItem.getCount();
+                
+                InventoryItem inventoryItem = InventoryManager.getSingleItem(orderItem.getProductId());
+                item.itemName = inventoryItem.getProductName();
+
+                item.itemShortDescription = inventoryItem.getShortDescription();
+
+                userOrderItems.Add(item);
+            }
+
+            return userOrderItems;
+        }
     }
 }
