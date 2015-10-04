@@ -16,7 +16,7 @@ namespace cisseniorproject.dataobjects
 
     public class Order
     {
-        private int orderId;
+        public int orderId { get; set; }
         private int userId;
         private PaymentInformation paymentInformation;
         private List<OrderItem> orderItems;

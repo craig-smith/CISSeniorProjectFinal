@@ -1,4 +1,5 @@
-﻿using cisseniorproject.payment;
+﻿using cisseniorproject.order;
+using cisseniorproject.payment;
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
@@ -184,6 +185,171 @@ namespace cisseniorproject.dataobjects
             }
         }
 
-        
+
+
+        internal Order getSingleOrder(int orderId)
+        {
+            Order order = new Order();
+
+            using (OleDbConnection sqlConn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlConn.Open();
+                    OleDbCommand cmd = sqlConn.CreateCommand();
+
+                    String select = "SELECT * FROM [ORDERS] WHERE [order_id] = @orderId";
+                    cmd.CommandText = select;
+                    cmd.Parameters.Add("orderId", OleDbType.Integer).Value = orderId;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        order.setOrderIdForOrderOnly((int)reader["order_id"]);
+                        order.setUserId((int)reader["user_id"]);
+                        order.setValidated((bool)reader["validated"]);
+                        order.setCompleted((bool)reader["completed"]);
+                        order.setPaymentAmount(Double.Parse(reader["payment_amount"].ToString(), NumberStyles.Currency));
+                        order.setIsCollctOnDelivery((bool)reader["collect_on_delivery"]);
+                        order.setPaymentInformation(getPaymentInformation((int)reader["payment_id"]));
+                        order.setOrderItems(getOrderItems((int)reader["order_id"]));
+                    }
+
+                    return order;
+                }
+                catch(OleDbException ex)
+                {
+                    return order;
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
+        private PaymentInformation getPaymentInformation(int paymentMethodId)
+        {
+           PaymentInformation paymentMethod =  PaymentManager.getUserCreditCard(paymentMethodId);
+           return paymentMethod;
+        }
+
+        internal void validateOrder(int orderNumber)
+        {
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+                    String update = "UPDATE [ORDERS] SET [validated] = TRUE WHERE [order_id] = @orderId";
+                    cmd.CommandText = update;
+                    cmd.Parameters.Add("orderId", OleDbType.Integer).Value = orderNumber;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException ex)
+                {
+
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
+
+        internal void completeOrder(int orderNumber)
+        {
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+                    String update = "UPDATE [ORDERS] SET [completed] = TRUE WHERE [order_id] = @orderId";
+                    cmd.CommandText = update;
+                    cmd.Parameters.Add("orderId", OleDbType.Integer).Value = orderNumber;
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (OleDbException ex)
+                {
+
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
+
+        internal List<OrderId> getAllIncompleteOrders()
+        {
+            List<OrderId> orderNumbers = new List<OrderId>();
+
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String select = "SELECT [order_id] FROM [ORDERS] WHERE [validated] = FALSE";
+                    cmd.CommandText = select;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        OrderId orderId = new OrderId();
+                        orderId.orderId = (int)reader["order_id"];
+                        orderNumbers.Add(orderId);
+                    }
+                    return orderNumbers;
+                }
+                catch (OleDbException ex)
+                {
+                    return orderNumbers;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
+
+        internal List<OrderId> getAllInvalidOrders()
+        {
+            List<OrderId> orderNumbers = new List<OrderId>();
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String select = "SELECT [order_id] FROM [ORDERS] WHERE [validated] = TRUE AND [completed] = FALSE";
+                    cmd.CommandText = select;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        OrderId orderId = new OrderId();
+                        orderId.orderId = (int)reader["order_id"];
+                        orderNumbers.Add(orderId);
+                    }
+                    return orderNumbers;
+                }
+                catch(OleDbException ex)
+                {
+                    return orderNumbers;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
     }
 }

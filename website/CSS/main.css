@@ -241,3 +241,17 @@ a{
 .my-order-item{
     margin-left: 20px;
 }
+#order-processing{
+    border: solid;
+    background-color: lightgray;
+    padding: 20px;
+}
+.user-info span{
+    font-weight: 600;
+}
+.payment-information span{
+    font-weight: 600;
+}
+.order-info span{
+    font-weight: 600;
+}

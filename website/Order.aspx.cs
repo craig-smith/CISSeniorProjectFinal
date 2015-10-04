@@ -96,6 +96,7 @@ public partial class Order : System.Web.UI.Page
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        Boolean proceed = true;
         String[] items = SessionVariableManager.getOrderItems();
         List<InventoryItem> orderInventory = new List<InventoryItem>();
         List<TextBox> textboxes = new List<TextBox>();
@@ -119,7 +120,13 @@ public partial class Order : System.Web.UI.Page
             
             for (int i = 0; i < orderInventory.Count; i++)
             {
-                orderManager.addItemToOrder(orderInventory[i], Convert.ToInt32(textboxes[i].Text));
+               bool success = orderManager.addItemToOrder(orderInventory[i], Convert.ToInt32(textboxes[i].Text));
+               if (!success)
+               {
+                   lblMessage.Text = "You cannot order more than we have in inventory. Please try again! (" + orderInventory[i].getProductName() + ")";
+                   proceed = false;
+                   return;
+               }
             }
 
         }
@@ -127,26 +134,30 @@ public partial class Order : System.Web.UI.Page
         orderManager.addPaymentInfo(userCreditCard);
         orderManager.setIsCollectOnDelivery(cbCollectOnDelivery.Checked);
         orderManager.setPaymentAmount(Convert.ToDouble(txtPaymentAmount.Text));
-
-        int orderNumber = orderManager.submitOrder();
-        if (orderNumber > 0)
+        if (proceed)
         {
-            lblMessage.Text = "Thank you for your order. Your order number is " + orderNumber + ". Keep this number for reference.";
-            btnCalculateOrder.Enabled = false;
-            btnSubmit.Enabled = false;
-            paymentAmountValidator.Enabled = false;
-            paymentAmountRequiredValidator.Enabled = false;
-
-            foreach (InventoryItem item in orderInventory)
+            int orderNumber = orderManager.submitOrder();
+            if (orderNumber > 0)
             {
-                SessionVariableManager.removeItemFromCart(item.getInventoryId());
-                
+                lblMessage.Text = "Thank you for your order. Your order number is " + orderNumber + ". Keep this number for reference.";
+                btnCalculateOrder.Enabled = false;
+                btnSubmit.Enabled = false;
+                paymentAmountValidator.Enabled = false;
+                paymentAmountRequiredValidator.Enabled = false;
+
+                foreach (InventoryItem item in orderInventory)
+                {
+                    SessionVariableManager.removeItemFromCart(item.getInventoryId());
+
+                }
+            }
+            else
+            {
+                lblMessage.Text = "Sorry, there was an error with your order. Please review your selection and try again.";
             }
         }
-        else
-        {
-            lblMessage.Text = "Sorry, there was an error with your order. Please review your selection and try again.";
-        }
+        
+        
         
     }
 }

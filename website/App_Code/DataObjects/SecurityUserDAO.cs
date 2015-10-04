@@ -43,12 +43,13 @@ namespace cisseniorproject.dataobjects
                     cmd.Parameters.Add("accountCreationDate", OleDbType.Date).Value = System.DateTime.Now;
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
+                    
 
-                    String select = "SELECT LAST([user_id]) FROM [USERS]";
-                    cmd.Parameters.Clear();
-                    cmd.CommandText = select;
-                    cmd.Prepare();
-                    int userId = (int)cmd.ExecuteScalar();
+                   String select = "SELECT @@IDENTITY";
+                   cmd.Parameters.Clear();
+                   cmd.CommandText = select;
+                   cmd.Prepare();
+                   int userId = (int)cmd.ExecuteScalar();
 
                     String insert2 = "INSERT INTO [PASSWORD]([password_id], [password], [salt]) VALUES(@passwordId, @password, @salt)";
                     cmd.Parameters.Clear();
@@ -60,9 +61,9 @@ namespace cisseniorproject.dataobjects
 
 
 
-                    int rows = cmd.ExecuteNonQuery();
+                    int rows2 = cmd.ExecuteNonQuery();
 
-                    if (rows > 0)
+                    if (rows2 > 0)
                     {
                         created = true;
                         transact.Commit();

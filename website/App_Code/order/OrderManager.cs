@@ -30,7 +30,7 @@ namespace cisseniorproject.order
 
         public Boolean addItemToOrder(InventoryItem inventoryItem, int count)
         {
-            if (count < inventoryItem.getProductCount())
+            if (count <= inventoryItem.getProductCount())
             {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setProductId(inventoryItem.getInventoryId());
@@ -185,6 +185,89 @@ namespace cisseniorproject.order
             }
 
             return userOrderItems;
+        }
+
+        public Order getOrder(int orderId)
+        {
+            OrderDAO dataLayer = new OrderDAO();
+            Order singleOrder = dataLayer.getSingleOrder(orderId);
+            this.order = singleOrder;
+            return singleOrder;
+        }
+
+        public double getOrderTotal()
+        {
+            double total = 0;
+            foreach (OrderItem item in order.getOrderItems())
+            {
+                total += item.getCount() * item.getSalePrice();
+            }
+            return total;
+        }
+
+        public double getAmountDue()
+        {
+            double amountDue = 0;
+            double orderTotal = getOrderTotal();
+
+            amountDue = orderTotal - order.getPaymentAmount();
+
+            return amountDue;
+        }
+
+        public void validateOrder(int orderNumber)
+        {
+            OrderDAO datalayer = new OrderDAO();
+            datalayer.validateOrder(orderNumber);
+        }
+
+        public void completeOrder(int orderNumber)
+        {
+            OrderDAO datalayer = new OrderDAO();
+            this.order = getOrder(orderNumber);
+            datalayer.completeOrder(orderNumber);
+            updateInventory();
+            
+        }
+        private void getInventoryItems(List<OrderItem> orderItems)
+        {
+            foreach (OrderItem orderItem in orderItems)
+            {
+                inventoryItems.Add(InventoryManager.getSingleItem(orderItem.getProductId()));
+            }
+            
+        }
+
+        private void removeOnHoldItems(List<OrderItem> orderItems)
+        {
+            for (int i = 0; i < inventoryItems.Count; i++ )
+            {
+                inventoryItems[i].removeOnHold(orderItems[i].getCount());
+            }
+        }
+
+        private void updateInventory()
+        {
+            getInventoryItems(order.getOrderItems());
+            removeOnHoldItems(order.getOrderItems());
+            foreach (InventoryItem inventoryItem in inventoryItems)
+            {
+                InventoryManager.updateInventoryItem(inventoryItem);
+            }
+        }
+
+        public List<OrderId> getAllIncompleteOrders()
+        {
+            OrderDAO datalayer = new OrderDAO();
+            List<OrderId> orderNumbers = datalayer.getAllIncompleteOrders();
+            return orderNumbers;
+        }
+
+        public List<OrderId> getAllInvalidOrders()
+        {
+            OrderDAO datalayer = new OrderDAO();
+            List<OrderId> orderNumbers = datalayer.getAllInvalidOrders();
+            return orderNumbers;
         }
     }
 }

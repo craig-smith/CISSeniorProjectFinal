@@ -132,5 +132,10 @@ namespace cisseniorproject.dataobjects
             productCount -= count;
             itemsOnHold += count;
         }
+
+        internal void removeOnHold(int count)
+        {
+            itemsOnHold -= count;
+        }
     }
 }
