@@ -34,10 +34,18 @@ namespace cisseniorproject.inventory
             return item;
         }
 
-        public static void updateInventoryItem(InventoryItem item)
+        public static bool updateInventoryItem(InventoryItem item)
         {
             ProductsDAO datalayer = new ProductsDAO();
-            datalayer.updateInventoryItem(item);
+           bool success = datalayer.updateInventoryItem(item);
+           return success;
+        }
+
+        public static List<InventoryItem> getAllItems()
+        {
+            ProductsDAO datalayer = new ProductsDAO();
+            List<InventoryItem> completeInventory = datalayer.getAllInventory();
+            return completeInventory;
         }
     }
 }

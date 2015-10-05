@@ -15,6 +15,7 @@ namespace cisseniorproject.utils
         public const String LAST_ITEM = "lastItem";
         public const String VIEW_ITEM = "viewItem";
         public const String ORDER_ID = "OrderId";
+        public const String ITEM_ID = "itemId";
         public const int NOT_PRESENT = -1;
 
         public QueryStringManager()
@@ -68,6 +69,15 @@ namespace cisseniorproject.utils
             if (isNotNull(getQueryString(ORDER_ID)))
             {
                 return Convert.ToInt32(getQueryString(ORDER_ID));
+            }
+            else return NOT_PRESENT;
+        }
+
+        public static int getItemId()
+        {
+            if (isNotNull(getQueryString(ITEM_ID)))
+            {
+                return Convert.ToInt32(getQueryString(ITEM_ID));
             }
             else return NOT_PRESENT;
         }

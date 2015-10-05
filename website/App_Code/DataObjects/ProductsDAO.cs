@@ -172,7 +172,7 @@ namespace cisseniorproject.dataobjects
             }
         }
 
-        internal void updateInventoryItem(InventoryItem item)
+        internal bool updateInventoryItem(InventoryItem item)
         {
             using (OleDbConnection sqlconn = new OleDbConnection(database))
             {
@@ -204,11 +204,12 @@ namespace cisseniorproject.dataobjects
                     cmd.Parameters.Add("inventoryId", OleDbType.Integer).Value = item.getInventoryId();
 
                     int rows = cmd.ExecuteNonQuery();
+                    return true;
                     
                 }
                 catch(OleDbException ex)
                 {
-
+                    return false;
                 }
                 finally
                 {
@@ -216,6 +217,39 @@ namespace cisseniorproject.dataobjects
                 }
             }
             
+        }
+
+        internal List<InventoryItem> getAllInventory()
+        {
+            List<InventoryItem> completeInventory = new List<InventoryItem>();
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String select = "SELECT * FROM [INVENTORY_ITEM]";
+                    cmd.CommandText = select;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        InventoryItem item = getItemFromReader(reader);
+                        completeInventory.Add(item);
+                    }
+
+                    return completeInventory;
+                }
+                catch (OleDbException ex)
+                {
+                    return completeInventory;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
         }
     }
 }

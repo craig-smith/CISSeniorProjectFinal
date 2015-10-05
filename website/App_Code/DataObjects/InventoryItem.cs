@@ -16,7 +16,7 @@ namespace cisseniorproject.dataobjects
 
     public class InventoryItem
     {
-        private int inventoryId;
+        public int inventoryId { get; set; }
         public String productName { get; set; }
         public int productCount { get; set; }
         private int itemsOnHold;

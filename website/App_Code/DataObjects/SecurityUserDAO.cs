@@ -123,6 +123,7 @@ namespace cisseniorproject.dataobjects
                 }
                 catch (OleDbException ex)
                 {
+                    Console.WriteLine("exception caught" + ex.GetBaseException());
                     credentials = null;
                     return credentials;
                 }
