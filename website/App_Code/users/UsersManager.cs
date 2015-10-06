@@ -7,26 +7,31 @@ using System.Web;
 /// <summary>
 /// Summary description for UsersManager
 /// </summary>
-public class UsersManager
+namespace cisseniorproject.users
 {
-    UserDAO dataLayer;
-	public UsersManager()
-	{
-        dataLayer = new UserDAO();
-	}
 
-    public User getUserData(String username)
+
+    public class UsersManager
     {
-       
-        User user = dataLayer.getUserDetails(username);
+        UserDAO dataLayer;
+        public UsersManager()
+        {
+            dataLayer = new UserDAO();
+        }
 
-        return user;
-    }
+        public User getUserData(String username)
+        {
 
-    public Boolean updateUserDetails(User user)
-    {
-        Boolean updated = dataLayer.updateUser(user);
+            User user = dataLayer.getUserDetails(username);
 
-        return updated;
+            return user;
+        }
+
+        public Boolean updateUserDetails(User user)
+        {
+            Boolean updated = dataLayer.updateUser(user);
+
+            return updated;
+        }
     }
 }

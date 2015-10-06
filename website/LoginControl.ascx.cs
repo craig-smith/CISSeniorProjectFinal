@@ -64,7 +64,7 @@ public partial class LoginControl : System.Web.UI.UserControl
                 checkLogin();
                 LinksControl control = new LinksControl();
                 control.reloadLinks();
-                Response.Redirect(Request.Path);
+                Response.Redirect(Request.Path);                
             }
             else
             {
