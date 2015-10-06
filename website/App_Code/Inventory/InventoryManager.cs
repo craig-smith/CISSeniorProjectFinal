@@ -47,5 +47,12 @@ namespace cisseniorproject.inventory
             List<InventoryItem> completeInventory = datalayer.getAllInventory();
             return completeInventory;
         }
+
+        public static bool insertNewItem(InventoryItem updateItem)
+        {
+            ProductsDAO datalayer = new ProductsDAO();
+            bool success = datalayer.insertNewItem(updateItem);
+            return success;
+        }
     }
 }

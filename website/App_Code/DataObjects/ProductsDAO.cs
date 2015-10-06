@@ -251,5 +251,49 @@ namespace cisseniorproject.dataobjects
                 }
             }
         }
+
+        internal bool insertNewItem(InventoryItem updateItem)
+        {
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    string insert = "INSERT INTO [INVENTORY_ITEM] ([product_name], [product_count], [items_on_hold], " +
+                         "[unit_price], [sale_price], [short_description], [long_description], [image_path]) " +
+                        "VALUES (@productName, @productCount, @itemsOnHold, @unitPrice, @salePrice, @shortDescription, @longDescription, @imagePath)";
+
+                    cmd.CommandText = insert;
+                    cmd.Parameters.Add("productName", OleDbType.VarChar, 255).Value = updateItem.getProductName();
+                    cmd.Parameters.Add("productCount", OleDbType.Integer).Value = updateItem.getProductCount();
+                    cmd.Parameters.Add("itemsOnHold", OleDbType.Integer).Value = updateItem.getItemsOnHold();
+                    cmd.Parameters.Add("unitPrice", OleDbType.Currency).Value = updateItem.getUnitPrice();
+                    cmd.Parameters.Add("salePrice", OleDbType.Currency).Value = updateItem.getSalePrice();
+                    cmd.Parameters.Add("shortDescription", OleDbType.VarChar, 255).Value = updateItem.getShortDescription();
+                    cmd.Parameters.Add("longDescription", OleDbType.LongVarChar).Value = updateItem.getLongDescription();
+                    cmd.Parameters.Add("imagePath", OleDbType.VarChar, 255).Value = updateItem.getImageUrl();
+
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows == 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (OleDbException ex)
+                {
+                    return false;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
     }
 }

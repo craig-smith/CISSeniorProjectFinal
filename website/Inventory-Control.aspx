@@ -9,6 +9,7 @@
     <asp:Panel ID="InventoryLinksPanel" runat="server" Visible="false">
         <asp:Repeater ID="InventoryLinksRepeater" runat="server" >
             <HeaderTemplate>
+                <h2>Choose an item to edit</h2>
                 <div class="inventory-list">
             </HeaderTemplate>
             <ItemTemplate>
@@ -18,8 +19,10 @@
                 </div>
             </FooterTemplate>
         </asp:Repeater>
+        <asp:Button ID="btnAddInventoryItem" Text="Add Inventory" runat="server" OnClick="btnAddInventoryItem_Click" />
     </asp:Panel>
     <asp:Panel ID="EditInventoryPanel" runat="server" Visible="false">
+        <h2>Edit Existing or Add New Item</h2>
         <div class="edit-inventory-item">
             <asp:HiddenField ID="hidInventoryId" runat="server" />
             <asp:HiddenField ID="hidImagePath" runat="server" />
@@ -28,9 +31,9 @@
             Items Pending: <asp:TextBox ID="txtItemsOnHold" runat="server"></asp:TextBox><br />
             Unit Cost: <asp:TextBox ID="txtUnitPrice" runat="server"></asp:TextBox><br />
             Sale Price: <asp:TextBox ID="txtSalePrice" runat="server"></asp:TextBox><br />
-            Short Description: <asp:TextBox ID="txtShortDescription" runat="server"></asp:TextBox><br />
-            Long Description: <asp:TextBox ID="txtLongDescription" runat="server"></asp:TextBox><br />
-            Image: <asp:FileUpload ID="ImageFileUpload" runat="server" /><br />
+            Short Description: <asp:TextBox ID="txtShortDescription" runat="server" Columns="100" TextMode="MultiLine"></asp:TextBox><br />
+            Long Description: <asp:TextBox ID="txtLongDescription" runat="server" Columns="100" TextMode="MultiLine"></asp:TextBox><br />
+            Image <span style="color: red;">(leave blank if you don't want to change. Must be present for new item)</span>: <asp:FileUpload ID="ImageFileUpload" runat="server" /><br />
             <div class="error-msg">
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Product Name is required" ControlToValidate="txtProductName" Display="Dynamic"></asp:RequiredFieldValidator>
