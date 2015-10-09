@@ -123,5 +123,73 @@ namespace cisseniorproject.dataobjects
             }
            
         }
+
+        public Boolean updateUserAccessLevel(int userId, int accessLevel)
+        {
+            Boolean success = false;
+
+            using (OleDbConnection sqlConn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlConn.Open();
+                    OleDbCommand cmd = sqlConn.CreateCommand();
+
+                    String update = "UPDATE [USERS] SET [access_level] = @accessLevel WHERE [user_id] = @userId";
+                    cmd.CommandText = update;
+                    cmd.Parameters.Add("accessLevel", OleDbType.Integer).Value = accessLevel;
+                    cmd.Parameters.Add("userId", OleDbType.Integer).Value = userId;
+
+                    int rows = cmd.ExecuteNonQuery();
+
+                    if (rows == 1)
+                    {
+                        success = true;
+                    }
+                    return success;
+                }
+                catch (OleDbException ex)
+                {                    
+                    return success;
+                }
+                finally
+                {
+                    sqlConn.Close();
+                }
+            }
+        }
+
+        public int getUserAccessLevel(int userId)
+        {
+            int accessLevel = -1;
+
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    string select = "SELECT [access_level] FROM [USERS] WHERE [user_id] = @userId";
+                    cmd.CommandText = select;
+                    cmd.Parameters.Add("userId", OleDbType.VarChar, 255).Value = userId;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        accessLevel = (int)reader["access_level"];
+                    }
+                    return accessLevel;
+                }
+                catch (OleDbException ex)
+                {
+                    return accessLevel;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
     }
 }

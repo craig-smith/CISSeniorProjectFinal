@@ -33,5 +33,17 @@ namespace cisseniorproject.users
 
             return updated;
         }
+
+        public Boolean updateUserAccessLevel(int userId, int accessLevel)
+        {
+            Boolean success = dataLayer.updateUserAccessLevel(userId, accessLevel);
+            return success;
+        }
+
+        public int getUserAccessLevel(int userId)
+        {
+            int accessLevel = dataLayer.getUserAccessLevel(userId);
+            return accessLevel;
+        }
     }
 }

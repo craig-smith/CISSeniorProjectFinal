@@ -14,8 +14,8 @@ namespace cisseniorproject.dataobjects
 {
     public class AccessLevel
     {
-        private int ID;
-        private String level;
+        public int ID { get; set; }
+        public String level { get; set; }
 
         public AccessLevel()
         {

@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContentPlaceHolder" Runat="Server">
+    <asp:HiddenField ID="hidUserID" runat="server"/>
     <h1>User Management</h1>
     Search For User (username): <asp:TextBox ID="txtSearchUser" runat="server"></asp:TextBox> <asp:Button ID="btnSearch" Text="Search" runat="server" OnClick="btnSearch_Click" />
     <div class="user-management">
@@ -45,6 +46,10 @@
         <div class="data-entry">
             <asp:Label ID="lblEmail" Text="Email: " runat="server"></asp:Label>
             <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+        </div>
+        <div>
+            <asp:Button ID="btnUpdate" Text="Update" runat="server" OnClick="btnUpdate_Click" />
+            <asp:Label ID="lblMsg" runat="server"></asp:Label>
         </div>
 
     </div>

@@ -26,6 +26,7 @@ namespace cisseniorproject.dataobjects
         private String zipCode;
         private DateTime accountCreationDate;
         private String email;
+        
 
 
         public User()
@@ -45,7 +46,7 @@ namespace cisseniorproject.dataobjects
             this.state = state;
             this.zipCode = zipCode;
             this.accountCreationDate = accountCreationDate;
-            this.email = email;
+            this.email = email;           
         }
 
         public int getId()
@@ -138,5 +139,6 @@ namespace cisseniorproject.dataobjects
         {
             this.address = address;
         }
+        
     }
 }
