@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContentPlaceHolder" Runat="Server">
     <h1>Inventory Control</h1>
-    <p>Use this page to edit existing inventory and to add new Inventory Items.</p>
+    <p>Use this page to edit existing inventory.</p>
     <p>Keep in mind, editing amount on hold could impact application perfomance.</p>
     <asp:Panel ID="InventoryLinksPanel" runat="server" Visible="false">
         <asp:Repeater ID="InventoryLinksRepeater" runat="server" >
@@ -19,7 +19,7 @@
                 </div>
             </FooterTemplate>
         </asp:Repeater>
-        <asp:Button ID="btnAddInventoryItem" Text="Add Inventory" runat="server" OnClick="btnAddInventoryItem_Click" />
+        
     </asp:Panel>
     <asp:Panel ID="EditInventoryPanel" runat="server" Visible="false">
         <h2>Edit Existing or Add New Item</h2>
@@ -33,7 +33,7 @@
             Sale Price: <asp:TextBox ID="txtSalePrice" runat="server"></asp:TextBox><br />
             Short Description: <asp:TextBox ID="txtShortDescription" runat="server" Columns="100" TextMode="MultiLine"></asp:TextBox><br />
             Long Description: <asp:TextBox ID="txtLongDescription" runat="server" Columns="100" TextMode="MultiLine"></asp:TextBox><br />
-            Image <span style="color: red;">(leave blank if you don't want to change. Must be present for new item)</span>: <asp:FileUpload ID="ImageFileUpload" runat="server" /><br />
+            Image <span style="color: red;">(leave blank if you don't want to change)</span>: <asp:FileUpload ID="ImageFileUpload" runat="server" /><br />
             <div class="error-msg">
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Product Name is required" ControlToValidate="txtProductName" Display="Dynamic"></asp:RequiredFieldValidator>

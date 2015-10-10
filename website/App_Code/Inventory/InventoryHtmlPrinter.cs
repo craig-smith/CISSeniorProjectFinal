@@ -118,7 +118,7 @@ namespace cisseniorproject.inventory
         }
         private String getImageHtml()
         {
-            String html = "<img src='Graphics/" + item.getImageUrl() + "'></img>";
+            String html = "<div class='inventory-image'><img src='Graphics/" + item.getImageUrl() + "'></img></div>";
             return html;
         }
 

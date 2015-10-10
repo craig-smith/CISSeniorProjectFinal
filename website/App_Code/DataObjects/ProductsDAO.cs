@@ -295,5 +295,37 @@ namespace cisseniorproject.dataobjects
                 }
             }
         }
+
+        public InventoryItem getProductByName(String name)
+        {
+            InventoryItem item = new InventoryItem();
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String select = "SELECT * FROM [INVENTORY_ITEM] WHERE [product_name] = @name";
+                    cmd.CommandText = select;
+                    cmd.Parameters.Add("name", OleDbType.VarChar, 255).Value = name;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        item = getItemFromReader(reader);
+                    }
+                    return item;
+                }
+                catch (OleDbException ex)
+                {
+                    return item;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
     }
 }

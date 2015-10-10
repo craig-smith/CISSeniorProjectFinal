@@ -54,5 +54,11 @@ namespace cisseniorproject.inventory
             bool success = datalayer.insertNewItem(updateItem);
             return success;
         }
+
+        public static InventoryItem getItemByName(string name)
+        {
+            ProductsDAO datalayer = new ProductsDAO();
+            return datalayer.getProductByName(name);
+        }
     }
 }

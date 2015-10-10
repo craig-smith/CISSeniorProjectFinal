@@ -58,7 +58,7 @@ public partial class User_Management : System.Web.UI.Page
 
         UsersManager businesslayer = new UsersManager();
         Boolean userUpdated = businesslayer.updateUserDetails(user);
-        ddlAccessLevel.ClearSelection();
+        //ddlAccessLevel.ClearSelection();
         Boolean accessLevelUpdated = businesslayer.updateUserAccessLevel(Convert.ToInt32(hidUserID.Value), Convert.ToInt32(ddlAccessLevel.SelectedValue));
 
         if (userUpdated && accessLevelUpdated)

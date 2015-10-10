@@ -9,12 +9,13 @@ body {
     background: -moz-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -ms-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background-attachment: fixed;
+
 }
 #header{
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
-    width: 1120px;
+    width: 60%;
     height: 100px;
     border: solid;
     text-align: center;
@@ -22,6 +23,7 @@ body {
     background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -moz-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -ms-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
+    border-radius: 25px;
 }
 #footer{
     margin-left: auto;
@@ -31,7 +33,8 @@ body {
 }
 #body{
     float: right;
-    min-width: 65%;
+    width: 65%;
+    border-radius: 25px;
     min-height: 800px;    
     margin-top: 30px;
     margin-bottom: 20px;
@@ -45,12 +48,13 @@ body {
 }
 #links{
     float: left;
-      
+     width: 10%; 
     margin-top: 30px;
     margin-left: 20px;
     margin-bottom: 20px;
     padding: 20px;
     border: solid;
+    border-radius: 25px;
     background-color: lightslategray;
 }
 a{
@@ -65,7 +69,7 @@ a{
 #login-control{
     float: right;
    
-    width: 300px;
+    width: 15%;
     padding: 5px;
     height: 90px;
 }
@@ -96,14 +100,15 @@ a{
 .nav-item{
     border:solid;
     height: 20px;
-    width: 200px;
+    width: 85%;
     background: linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -moz-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -ms-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     margin-top: 10px;
     text-align: center;
-    
+    margin-left: 5%;
+    border-radius: 25px;
 }
 .data-entry{
     width: 400px;
@@ -162,6 +167,9 @@ a{
 .inventory-view-item{
     width: 100%;
     display: block;
+}
+.inventory-view-item .inventory-image{
+    overflow: hidden;
 }
 .inventory-long-description{
     width: 500px;
@@ -254,4 +262,8 @@ a{
 }
 .order-info span{
     font-weight: 600;
+}
+.inventory-list .nav-item{
+    width: 300px;
+    margin-left: 25%;    
 }
