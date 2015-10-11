@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using cisseniorproject.dataobjects;
+using cisseniorproject.inventory;
 
 /// <summary>
 /// Summary description for PurchaseManager
@@ -75,6 +76,42 @@ namespace cisseniorproject.purchase
             {
                 return false;
             }
+        }
+
+        public static List<InventoryPurchaseItem> getPurchaseOrderItems()
+        {
+            List<InventoryPurchaseItem> itemsToOrder = new List<InventoryPurchaseItem>();
+
+            InventoryPurchaseInfoDAO datalayer = new InventoryPurchaseInfoDAO();
+
+            List<InventoryPurchaseInfo> purchaseInfo = datalayer.getItemsBelowMinInventory();
+
+            foreach (InventoryPurchaseInfo item in purchaseInfo)
+            {
+                InventoryPurchaseItem purchaseOrderItem = new InventoryPurchaseItem();
+                InventoryItem inventoryItem = InventoryManager.getSingleItem(item.inventoryItemId);
+                purchaseOrderItem.itemName = inventoryItem.getProductName();
+                purchaseOrderItem.itemCost = inventoryItem.getUnitPrice();
+                purchaseOrderItem.inventoryCount = inventoryItem.getProductCount();
+                purchaseOrderItem.minCount = item.minInventory;
+                purchaseOrderItem.supplier = getManufacturer(item.manufacturerId).name;
+
+                itemsToOrder.Add(purchaseOrderItem);
+            }
+            return itemsToOrder;
+        }
+
+        public static Boolean processOrder(List<PurchaseOrder> orders)
+        {
+            ManufacturerDAO datalayer = new ManufacturerDAO();
+            foreach (PurchaseOrder order in orders.ToList())
+            {
+                Manufacturer manufacturer = datalayer.getSingleManufacturer(order.manufacturer.name);
+                order.manufacturer = manufacturer;
+            }
+
+            PurchaseOrderXMLWritter xmlWritter = new PurchaseOrderXMLWritter();
+            return xmlWritter.writePurchaseOrders(orders);
         }
     }
 }

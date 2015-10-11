@@ -158,5 +158,41 @@ namespace cisseniorproject.dataobjects
                 }
             }
         }
+
+        public List<InventoryPurchaseInfo> getItemsBelowMinInventory()
+        {
+            List<InventoryPurchaseInfo> inventoryPurchaseInfo = new List<InventoryPurchaseInfo>();
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String select = "SELECT [INVENTORY_PURCHASE_INFO].inventory_item_id, [INVENTORY_PURCHASE_INFO].manufacturer_id, [INVENTORY_PURCHASE_INFO].min_inventory " +
+                        "FROM [INVENTORY_PURCHASE_INFO] INNER JOIN [INVENTORY_ITEM] ON ([INVENTORY_PURCHASE_INFO].inventory_item_id = [INVENTORY_ITEM].inventory_id) " +
+                        "WHERE [INVENTORY_PURCHASE_INFO].min_inventory > [INVENTORY_ITEM].product_count ORDER BY [INVENTORY_PURCHASE_INFO].manufacturer_id";
+                    cmd.CommandText = select;
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        InventoryPurchaseInfo info = new InventoryPurchaseInfo();
+                        info.inventoryItemId = (int)reader["inventory_item_id"];
+                        info.manufacturerId = (int)reader["manufacturer_id"];
+                        info.minInventory = (int)reader["min_inventory"];
+                        inventoryPurchaseInfo.Add(info);
+                    }
+                    return inventoryPurchaseInfo;
+                }
+                catch (OleDbException ex)
+                {
+                    return inventoryPurchaseInfo;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
     }
 }

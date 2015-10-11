@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PurchaseOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <manufacturer>
+    <manufacturerId>2</manufacturerId>
+    <name>Nice Goods</name>
+    <address>66 large ln Compton CA 65340</address>
+  </manufacturer>
+  <items>
+    <PurchaseOrderItem>
+      <itemName>Bronze Medal</itemName>
+      <orderAmount>5</orderAmount>
+      <itemPrice>15</itemPrice>
+    </PurchaseOrderItem>
+  </items>
+</PurchaseOrder>

@@ -87,7 +87,7 @@ namespace cisseniorproject.order
                         return orderNumber;
                     }
                 }
-                else if (paymentAmount == getTotalOrderCost())
+                else if (paymentAmount == Math.Round(getTotalOrderCost(), 2, MidpointRounding.AwayFromZero))
                 {
                     order.setPaymentAmount(paymentAmount);
                     order.setIsCollctOnDelivery(isCollectOnDelivery);

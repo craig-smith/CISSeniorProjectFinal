@@ -156,6 +156,41 @@ namespace cisseniorproject.dataobjects
                 }
             }
         }
+
+        internal Manufacturer getSingleManufacturer(string name)
+        {
+            Manufacturer manufacturer = new Manufacturer();
+            using (OleDbConnection sqlconn = new OleDbConnection(database))
+            {
+                try
+                {
+                    sqlconn.Open();
+                    OleDbCommand cmd = sqlconn.CreateCommand();
+
+                    String select = "SELECT * FROM [MANUFACTURER] WHERE [manufacturer_name] = @manufacturerName";
+                    cmd.CommandText = select;
+                    cmd.Parameters.Add("manufacturerName", OleDbType.VarChar, 255).Value = name;
+
+                    OleDbDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        manufacturer.manufacturerId = (int)reader["manufacturer_id"];
+                        manufacturer.name = reader["manufacturer_name"].ToString();
+                        manufacturer.address = reader["address"].ToString();
+                    }
+                    return manufacturer;
+
+                }
+                catch (OleDbException ex)
+                {
+                    return manufacturer;
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+            }
+        }
     }
     
 }
