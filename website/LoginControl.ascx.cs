@@ -87,4 +87,10 @@ public partial class LoginControl : System.Web.UI.UserControl
             }
         }
     }
+    protected void lnkLogOut_Click(object sender, EventArgs e)
+    {
+        SessionVariableManager.logOut();
+        Response.Redirect("index.aspx");
+
+    }
 }

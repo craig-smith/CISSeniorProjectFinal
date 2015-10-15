@@ -22,23 +22,33 @@ namespace cisseniorproject.purchase
 
         public Boolean writePurchaseOrders(List<PurchaseOrder> orders)
         {
-            try
+
+            XmlSerializer xmlWritter = new XmlSerializer(typeof(PurchaseOrder));
+            foreach (PurchaseOrder order in orders)
             {
-                XmlSerializer xmlWritter = new XmlSerializer(typeof(PurchaseOrder));
-                foreach (PurchaseOrder order in orders)
+                using (TextWriter textWriter = new StreamWriter(path + "/" + order.manufacturer.name + ".xml"))
                 {
-                    TextWriter textWriter = new StreamWriter(path + "/" + order.manufacturer.name + ".xml");
-                    xmlWritter.Serialize(textWriter, order);
-                }
-                return true;
+                    try
+                    {
+                        xmlWritter.Serialize(textWriter, order);
+                    }
+
+
+                    catch (IOException ex)
+                    {
+                        return false;
+                    }
+                    finally
+                    {
+                        textWriter.Close();
+                    }
+                }                
             }
-            catch (IOException ex)
-            {
-                return false;
-            }
-            
-            
-            
+            return true;
         }
     }
+            
+            
+        
+    
 }

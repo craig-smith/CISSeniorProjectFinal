@@ -120,5 +120,10 @@ namespace cisseniorproject.utils
         {
             HttpContext.Current.Session[ORDER] = null;
         }
+
+        public static void logOut()
+        {
+            HttpContext.Current.Session.Abandon();
+        }
     }
 }

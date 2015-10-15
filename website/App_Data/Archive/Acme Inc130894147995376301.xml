@@ -8,7 +8,7 @@
   <items>
     <PurchaseOrderItem>
       <itemName>Binder</itemName>
-      <orderAmount>20</orderAmount>
+      <orderAmount>5</orderAmount>
       <itemPrice>4.99</itemPrice>
     </PurchaseOrderItem>
     <PurchaseOrderItem>
@@ -18,7 +18,7 @@
     </PurchaseOrderItem>
     <PurchaseOrderItem>
       <itemName>silver medal</itemName>
-      <orderAmount>20</orderAmount>
+      <orderAmount>25</orderAmount>
       <itemPrice>17.5</itemPrice>
     </PurchaseOrderItem>
     <PurchaseOrderItem>

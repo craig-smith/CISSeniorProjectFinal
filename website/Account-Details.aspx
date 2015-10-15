@@ -39,8 +39,8 @@
             <asp:TextBox ID="txtState" runat="server" ValidationGroup="1"></asp:TextBox>
         </div>
         <div class="data-entry">
-            <asp:Label ID="lblZipCode" Text="Zip Code: " runat="server" ValidationGroup="1"></asp:Label>
-            <asp:TextBox ID="txtZipCode" runat="server"></asp:TextBox>
+            <asp:Label ID="lblZipCode" Text="Zip Code: " runat="server" ></asp:Label>
+            <asp:TextBox ID="txtZipCode" runat="server" ValidationGroup="1"></asp:TextBox>
         </div>
         <asp:Button ID="Submit" Text="Submit" runat="server" OnClick="Submit_Click" ValidationGroup="1" />
         <div>

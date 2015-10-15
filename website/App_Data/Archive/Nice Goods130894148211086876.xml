@@ -3,13 +3,18 @@
   <manufacturer>
     <manufacturerId>2</manufacturerId>
     <name>Nice Goods</name>
-    <address>66 large ln Compton CA 65340</address>
+    <address>orders@nicegoods.com</address>
   </manufacturer>
   <items>
     <PurchaseOrderItem>
       <itemName>Bronze Medal</itemName>
       <orderAmount>5</orderAmount>
       <itemPrice>15</itemPrice>
+    </PurchaseOrderItem>
+    <PurchaseOrderItem>
+      <itemName>silver baseball figure</itemName>
+      <orderAmount>5</orderAmount>
+      <itemPrice>12.5</itemPrice>
     </PurchaseOrderItem>
   </items>
 </PurchaseOrder>

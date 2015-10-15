@@ -1,4 +1,5 @@
-﻿using cisseniorproject.order;
+﻿using cisseniorproject.dataobjects;
+using cisseniorproject.order;
 using cisseniorproject.utils;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,11 @@ public partial class Order_Processing : System.Web.UI.Page
         lblPaymentAmount.Text = String.Format("{0:C}",order.getPaymentAmount());
         lblTotalOrderAmount.Text = String.Format("{0:C}", businessLayer.getOrderTotal());
         lblAmountDue.Text = String.Format("{0:C}", businessLayer.getAmountDue());
+
+        List<UserOrderItem> orderItems = businessLayer.getOrderItems(order);
+
+        rptOrderItems.DataSource = orderItems;
+        rptOrderItems.DataBind();
 
     }
     protected void btnValidateOrder_Click(object sender, EventArgs e)

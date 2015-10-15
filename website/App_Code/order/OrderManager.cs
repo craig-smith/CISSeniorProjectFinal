@@ -269,5 +269,23 @@ namespace cisseniorproject.order
             List<OrderId> orderNumbers = datalayer.getAllInvalidOrders();
             return orderNumbers;
         }
+
+        public List<UserOrderItem> getOrderItems(Order order)
+        {
+            List<UserOrderItem> items = new List<UserOrderItem>();
+            foreach (OrderItem orderItem in order.getOrderItems())
+            {
+                InventoryItem inventoryItem = InventoryManager.getSingleItem(orderItem.getProductId());
+                UserOrderItem  item = new UserOrderItem();
+                item.itemCost = orderItem.getSalePrice();
+                item.itemCount = orderItem.getCount();
+                item.itemName = inventoryItem.getProductName();
+                item.itemShortDescription = inventoryItem.getShortDescription();
+
+                items.Add(item);
+            }
+            return items;
+            
+        }
     }
 }

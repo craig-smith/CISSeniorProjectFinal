@@ -24,7 +24,7 @@ public partial class Create_Purchase_Order : System.Web.UI.Page
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        List<PurchaseOrder> purchaseOrders = new List<PurchaseOrder>();
+        Dictionary<String, PurchaseOrder> purchaseOrders = new Dictionary<String, PurchaseOrder>();
         
 
         foreach (RepeaterItem rptItem in OrderItems.Items)
@@ -41,41 +41,23 @@ public partial class Create_Purchase_Order : System.Web.UI.Page
 
             Label supplier = (Label)rptItem.FindControl("lblSupplier");
 
-            if (purchaseOrders.Count == 0)
-            {
-                PurchaseOrder newOrder = new PurchaseOrder();
-                
-                newOrder.manufacturer.name = supplier.Text;
-                newOrder.addItemToOrder(orderItem);
-
-                purchaseOrders.Add(newOrder);
-            }
-            else
-            {
-                foreach (PurchaseOrder order in purchaseOrders.ToList())
-                {
-                    if (order.manufacturer.name == supplier.Text)
-                    {
-                        order.addItemToOrder(orderItem);
-                    }
-                    else
-                    {
-                        PurchaseOrder newOrder = new PurchaseOrder();
-                       
-                        newOrder.manufacturer.name = supplier.Text;
-                        newOrder.addItemToOrder(orderItem);
-
-                        purchaseOrders.Add(newOrder);
-                    }
-                }
-            }
-
-           
             
-            
-        }
+          if (!purchaseOrders.ContainsKey(supplier.Text))
+          {
+              PurchaseOrder newOrder = new PurchaseOrder();
 
-        Boolean success = PurchaseManager.processOrder(purchaseOrders);
+              newOrder.manufacturer.name = supplier.Text;
+              newOrder.addItemToOrder(orderItem);
+
+              purchaseOrders[newOrder.manufacturer.name] = newOrder; 
+          }
+          else
+          {
+              purchaseOrders[supplier.Text].addItemToOrder(orderItem);
+          }                                                 
+      }
+
+        Boolean success = PurchaseManager.processOrder(purchaseOrders.Values.ToList());
         if (success)
         {
             lblMsg.Text = "Purchase orders successfully created.";
