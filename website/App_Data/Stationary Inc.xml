@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PurchaseOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <manufacturer>
+    <manufacturerId>4</manufacturerId>
+    <name>Stationary Inc</name>
+    <address>orders@stationary-inc.com</address>
+  </manufacturer>
+  <items>
+    <PurchaseOrderItem>
+      <itemName>Pencils</itemName>
+      <orderAmount>5</orderAmount>
+      <itemPrice>5</itemPrice>
+    </PurchaseOrderItem>
+    <PurchaseOrderItem>
+      <itemName>Colored Pencils</itemName>
+      <orderAmount>5</orderAmount>
+      <itemPrice>5</itemPrice>
+    </PurchaseOrderItem>
+    <PurchaseOrderItem>
+      <itemName>Paper</itemName>
+      <orderAmount>5</orderAmount>
+      <itemPrice>25</itemPrice>
+    </PurchaseOrderItem>
+  </items>
+</PurchaseOrder>

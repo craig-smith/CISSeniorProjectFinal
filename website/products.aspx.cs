@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 
 public partial class products : System.Web.UI.Page
 {
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         int lastItemNumber = QueryStringManager.getLastItem();
@@ -20,12 +21,25 @@ public partial class products : System.Web.UI.Page
         {
             List<InventoryItem> items = InventoryManager.getNext10Products(lastItemNumber);
             printAllItems(items);
+            int itemCount = items.Count;
+            int LastItemId = items[itemCount - 1].getInventoryId();
+            int firstItem = items[0].getInventoryId();
+            getLinks(LastItemId, firstItem);
         }
         else if(viewItem != QueryStringManager.NOT_PRESENT)
         {
             InventoryItem item = InventoryManager.getSingleItem(viewItem);
             printViewItem(item);
         }
+    }
+
+    private void getLinks(int lastItemNumber, int firstItem)
+    {
+        List<int> itemIds = InventoryManager.getTotalItems();
+        InventoryHtmlPrinter printer = new InventoryHtmlPrinter();
+        String links = printer.getInventoryLinkHTML(lastItemNumber, firstItem, itemIds);
+        LiteralControl control = new LiteralControl(links);
+        productsLinksPlaceHolder.Controls.Add(control);
     }
 
     private void printAllItems(List<InventoryItem> items)

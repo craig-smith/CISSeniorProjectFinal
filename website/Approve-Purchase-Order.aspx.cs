@@ -15,8 +15,11 @@ public partial class Approve_Purchase_Order : System.Web.UI.Page
         if (!IsPostBack)
         {
             loadDdlPurchasOrder();
-
-            getXmlData(ddlPurchaseOrder.SelectedValue);            
+            if (ddlPurchaseOrder.SelectedValue != "" )
+            {
+                getXmlData(ddlPurchaseOrder.SelectedValue);  
+            }
+                      
             
         }
     }
@@ -33,12 +36,17 @@ public partial class Approve_Purchase_Order : System.Web.UI.Page
     private void getXmlData(String xmlFile)
     {
         PurchaseOrderXMLReader xmlReader = new PurchaseOrderXMLReader();
-        XmlDataSource1.DataFile = xmlReader.getXmlFile(xmlFile);
-        XmlDocument doc = XmlDataSource1.GetXmlDocument();
-        XmlNodeList manufacturerName = doc.GetElementsByTagName("name");
-        lblCompanyName.Text = manufacturerName[0].InnerXml;
-        XmlDataSource1.XPath = "/PurchaseOrder/items/PurchaseOrderItem";
-        XmlDataSource1.DataBind();
+        
+        if (xmlFile != null || xmlFile != "")
+        {
+            XmlDataSource1.DataFile = xmlReader.getXmlFile(xmlFile);
+            XmlDocument doc = XmlDataSource1.GetXmlDocument();
+            XmlNodeList manufacturerName = doc.GetElementsByTagName("name");
+            lblCompanyName.Text = manufacturerName[0].InnerXml;
+            XmlDataSource1.XPath = "/PurchaseOrder/items/PurchaseOrderItem";
+            XmlDataSource1.DataBind();
+        }
+        
     }
     protected void btnSend_Click(object sender, EventArgs e)
     {

@@ -44,5 +44,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContentPlaceHolder" Runat="Server">
     <asp:PlaceHolder ID="productsPlaceHolder" runat="server"></asp:PlaceHolder>
+
+    <asp:PlaceHolder ID="productsLinksPlaceHolder" runat="server"></asp:PlaceHolder>
 </asp:Content>
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PurchaseOrder xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <manufacturer>
+    <manufacturerId>3</manufacturerId>
+    <name>Franklin Goods</name>
+    <address>orders@franklin.com</address>
+  </manufacturer>
+  <items>
+    <PurchaseOrderItem>
+      <itemName>Aluminum Clock</itemName>
+      <orderAmount>5</orderAmount>
+      <itemPrice>35</itemPrice>
+    </PurchaseOrderItem>
+    <PurchaseOrderItem>
+      <itemName>Glass Paper Weight</itemName>
+      <orderAmount>5</orderAmount>
+      <itemPrice>20</itemPrice>
+    </PurchaseOrderItem>
+  </items>
+</PurchaseOrder>

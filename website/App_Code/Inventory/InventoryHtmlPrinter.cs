@@ -23,7 +23,10 @@ namespace cisseniorproject.inventory
             this.item = item;
             htmlBuilder = new StringBuilder();
         }
-
+        public InventoryHtmlPrinter()
+        {
+            htmlBuilder = new StringBuilder();
+        }
         public string getMultiItemHtml()
         {
             
@@ -40,6 +43,36 @@ namespace cisseniorproject.inventory
             htmlBuilder.Append(getEndingHtml());
 
             return htmlBuilder.ToString();
+        }
+
+        public String getInventoryLinkHTML(int lastItem, int firstItem, List<int> itemIds)
+        {
+            htmlBuilder.Append(getBeginingLinksDiv());
+            int totalPages = (itemIds.Count / 10);
+            if (itemIds.Count % 10 > 1)
+            {
+                totalPages++;
+            }
+            int nextPage = itemIds[0];
+            for (int i = 0; i < totalPages; i++)
+            {                
+                htmlBuilder.Append(getPageLink(i, nextPage));                
+                nextPage = itemIds[i + 10 - 1];
+            }
+                
+            
+            htmlBuilder.Append(getEndingHtml());
+            return htmlBuilder.ToString();
+        }
+
+        private String getPageLink(int pageText, int pageNumber)
+        {
+            return "<div class='product-page-link'><a href='products.aspx?lastItem=" + pageNumber + "' >" + (pageText + 1) + "</a></div>";
+        }
+
+        private String getCurrentPageLink(int pageText, int pageNumber)
+        {
+            return "<div class='product-page-link-current'><a href='products.aspx?lastItem=" + pageNumber + "' >" + (pageText + 1) + "</a></div>";
         }
 
         public string getViewItemHtml(InventoryItem item)
@@ -77,7 +110,10 @@ namespace cisseniorproject.inventory
 
             return htmlBuilder.ToString();
         }
-
+        private string getBeginingLinksDiv()
+        {
+            return "<div class='products-links'>";
+        }
         private String getOutOfStockDiv()
         {
             return "<div class='out-of-stock'><p>Sorry, this item is currently out of Stock.</p></div>";

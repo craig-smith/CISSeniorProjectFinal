@@ -13,11 +13,15 @@ public partial class Add_Inventory_Item : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        List<Manufacturer> manufacturers = PurchaseManager.getAllManufacturers();
-        ddlManufacturer.DataSource = manufacturers;
-        ddlManufacturer.DataTextField = "name";
-        ddlManufacturer.DataValueField = "manufacturerId";
-        ddlManufacturer.DataBind();
+        if (!IsPostBack)
+        {
+            List<Manufacturer> manufacturers = PurchaseManager.getAllManufacturers();
+            ddlManufacturer.DataSource = manufacturers;
+            ddlManufacturer.DataTextField = "name";
+            ddlManufacturer.DataValueField = "manufacturerId";
+            ddlManufacturer.DataBind();
+        }
+        
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
@@ -47,8 +51,9 @@ public partial class Add_Inventory_Item : System.Web.UI.Page
             {
                 InventoryPurchaseInfo purchaseInfo = new InventoryPurchaseInfo();
                 InventoryItem item = InventoryManager.getItemByName(txtProductName.Text);
-
+               
                 purchaseInfo.inventoryItemId = item.getInventoryId();
+                
                 purchaseInfo.manufacturerId = Convert.ToInt32(ddlManufacturer.SelectedValue);
                 purchaseInfo.minInventory = Convert.ToInt32(txtMinumInventory.Text);
 

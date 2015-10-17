@@ -23,7 +23,7 @@
     </PurchaseOrderItem>
     <PurchaseOrderItem>
       <itemName>gold baseball figure</itemName>
-      <orderAmount>20</orderAmount>
+      <orderAmount>15</orderAmount>
       <itemPrice>12.55</itemPrice>
     </PurchaseOrderItem>
   </items>

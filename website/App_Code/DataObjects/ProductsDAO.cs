@@ -76,24 +76,31 @@ namespace cisseniorproject.dataobjects
             return item;
         }
 
-        public int countAllItems()
+        public List<int> getAllProductIds()
         {
+            List<int> itemIds = new List<int>();
             using (OleDbConnection sqlConn = new OleDbConnection(database))
             {
                 try
                 {
                     sqlConn.Open();
-                    String select = "SELECT COUNT([inventory_id]) FROM [INVENTORY_ITEM]";
+                    String select = "SELECT [inventory_id] FROM [INVENTORY_ITEM]";
 
                     OleDbCommand cmd = new OleDbCommand(select, sqlConn);
 
-                    int count = (int) cmd.ExecuteScalar();
+                    OleDbDataReader reader = cmd.ExecuteReader();
 
-                    return count;
+                    while (reader.Read())
+                    {
+                        int itemId = (int)reader["inventory_id"];
+                        itemIds.Add(itemId);
+                    }
+
+                    return itemIds;
                 }
                 catch (OleDbException ex)
                 {
-                    return 0;
+                    return itemIds;
                 }
                 finally
                 {

@@ -60,5 +60,11 @@ namespace cisseniorproject.inventory
             ProductsDAO datalayer = new ProductsDAO();
             return datalayer.getProductByName(name);
         }
+
+        public static List<int> getTotalItems()
+        {
+            ProductsDAO datalayer = new ProductsDAO();
+            return datalayer.getAllProductIds();
+        }
     }
 }

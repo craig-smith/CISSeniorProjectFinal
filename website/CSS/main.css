@@ -100,7 +100,7 @@ a{
 .nav-item{
     border:solid;
     border-width: 1px;
-    height: 20px;
+    
     width: 90%;
     background: linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
     background: -webkit-linear-gradient(top right, rgb(128, 128, 128), rgb(255, 255, 255));
@@ -308,5 +308,20 @@ a{
 .order-items{
     padding: 10px;
     margin: 10px;
+}
+.products-links{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
+.product-page-link{
+    float: left;
+    margin: 5px;   
+}
+.product-page-link-current{
+    float: left;
+    margin: 5px;
+    font-weight: 600;
 }
 
